@@ -40,6 +40,8 @@ render() {
     <NavBar/>
     <Switch>
     <Route exact path="/" render={(routerProps)=> <PlantsContainer setUser={this.setUser} {...this.state} {...routerProps}/>}/>
+    <Route exact path="/plants" render={(routerProps)=> <PlantsContainer setUser={this.setUser} {...this.state} {...routerProps}/>}/>
+    <Route exact path="/flowers" render={(routerProps)=> <PlantsContainer api={"http://localhost:3000/api/v1/flowers"}setUser={this.setUser} {...this.state} {...routerProps}/>}/>
     </Switch>
     </div>
   );

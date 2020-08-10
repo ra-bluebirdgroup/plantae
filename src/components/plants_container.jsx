@@ -2,14 +2,18 @@ import React from 'react'
 import PlantCard from "./plant_card";
 
 
-let API = 'http://localhost:3000/api/v1/plants'
+
 class PlantsContainer extends React.Component {
   state = {
     plants: [],
     currentPage: 1
   }
 
-  componentDidMount() {
+  getPlants = () => {
+    let API = 'http://localhost:3000/api/v1/plants'
+    if (this.props.api) {
+      API = this.props.api
+    }
     fetch(API, {
     method: "GET",
     headers: {
@@ -30,16 +34,22 @@ class PlantsContainer extends React.Component {
       })
     }
    })
-
+  }
+  componentDidMount() {
+   this.getPlants()
   }
 
-componentDidUpdate(prevState) {
-  if (prevState !== this.state){
-
+componentDidUpdate(prevProps) {
+  if (prevProps !== this.props){
+    this.getPlants()
  }
 }
 
  handleClick = e => {
+   let API = 'http://localhost:3000/api/v1/plants'
+   if (this.props.api) {
+     API = this.props.api
+   }
    if (e.target.innerText === "☚") {
      fetch(API, {
      method: "GET",
