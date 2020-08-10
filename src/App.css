@@ -1,3 +1,14 @@
+.navButtons {
+  background-color: #523906;
+  color: white;
+  padding: 1px 5px;
+  margin: 2px 1;
+  border: solid;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+
+}
 .cards {
   justify-content: center;
   display: flex;
@@ -9,7 +20,7 @@
 
 .card {
   min-width: 70px;
-  min-height: auto;
+  min-height: 85px;
   padding: 13px;
   background-color: f4f6ff;
   border-radius: 0.25rem;
@@ -28,11 +39,13 @@
   overflow: hidden;
   position: relative;
   transition: filter 0.5s cubic-bezier(.43,.41,.22,.91);
-  width: 200px;
-  height: auto;
+  width:  300px;
+  height: 300px;
+  object-fit: cover;
 }
 .card__image:hover{
   filter: contrast(100%);
+
 }
 
 .logo {

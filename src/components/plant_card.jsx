@@ -6,7 +6,10 @@ class PlantCard extends React.Component {
   }
 
   render(){
-      let { common_name, image_url, family_common_name, synonyms } = this.props;
+      let { common_name, image_url, family_common_name } = this.props;
+      if (!image_url) {
+        image_url = 'https://www.savetheredwoods.org/wp-content/uploads/JedediahSmithRedwoodscrop-1024x516.jpg'
+      }
     console.log(this.props)
     return(
       <div className="card">
@@ -14,10 +17,10 @@ class PlantCard extends React.Component {
             src={image_url}
             alt={common_name}
             className="card__image"
+            onError={this.addDefaultSrc}
             // onClick={this.handleClick}
           />
-      <p>Name: {common_name}</p>
-      <p>Family: {family_common_name}</p>
+
     </div>
     )
   }
