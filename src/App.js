@@ -1,26 +1,49 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+// import CoinContainer from "./Components/CoinContComp/CoinContainer";
+// import ExchContainer from "./Components/ExchContComp/ExchContainer";
+// import MyCoins from "./Components/MyCoins";
+import { Route, Switch } from "react-router-dom";
+import NavBar from "./components/navbar";
+import PlantsContainer from "./components/plants_container";
+// import UserNavbar from "./Components/UserNavBar";
+// import SignUp from "./Components/SignUp";
+// import LogIn from "./Components/LogIn";
+// import LogOut from "./Components/LogOut";
+// import "./App.css";
 
-function App() {
+class App extends React.Component {
+ state = {
+   currentUser: null
+ }
+
+ setUser = (user) => {
+   if (user && user.message) {
+    alert(user.message)
+  } else if (user) {
+    this.setState({
+      currentUser: user
+   },()=> {
+     localStorage.user_id = user[0].id
+     this.props.history.push('/my_coins')
+   })
+ } else {
+   this.setState({
+     currentUser: user
+  },()=> this.props.history.push('/coins'))
+  }
+  console.log(this.state)
+ }
+
+render() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <NavBar/>
+    <Switch>
+    <Route exact path="/" render={(routerProps)=> <PlantsContainer setUser={this.setUser} {...this.state} {...routerProps}/>}/>
+    </Switch>
     </div>
   );
+ }
 }
 
 export default App;
