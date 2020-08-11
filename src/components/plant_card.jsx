@@ -2,25 +2,66 @@ import React from "react";
 
 class PlantCard extends React.Component {
   state = {
-    plant: this.props
+    plant: this.props,
+    scientificName: "",
+    image_url: ""
   }
 
-  render(){
-      let { common_name, image_url, family_common_name } = this.props;
-      if (!image_url) {
-        image_url = 'https://www.savetheredwoods.org/wp-content/uploads/JedediahSmithRedwoodscrop-1024x516.jpg'
+  componentDidMount(){
+    if (!this.props.image_url) {
+      console.log(this.props)
+      let API = 'http://localhost:3000/api/v1/getImage'
+      fetch(API, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        scientificName: this.props.scientific_name
       }
-    console.log(this.props)
+    })
+    .then(res => res.json())
+    .then(data => {
+       if (data.errors) {
+         alert(data.errors)
+      } else {
+        this.setState({
+          image_url: data.data.hits[Math.floor(Math.random() * 24)].largeImageURL
+        })
+      }
+     })
+  } else {
+   this.setState({
+     image_url: this.props.image_url
+   })
+  }
+
+  }
+
+ setScientificName = () => {
+   this.setState({
+      ScientificName: this.props.scientific_name
+   })
+ }
+
+ resetScientificName  = () => {
+   this.setState({
+      ScientificName: ""
+   })
+ }
+
+
+  render(){
+      let {family_ScientificName } = this.props;
+
     return(
-      <div className="card">
+      <div onMouseEnter={this.setScientificName} onMouseLeave={this.resetScientificName} className="card">
       <img
-            src={image_url}
-            alt={common_name}
+            src={this.state.image_url}
+            alt={this.props.scientific_name}
             className="card__image"
-            onError={this.addDefaultSrc}
             // onClick={this.handleClick}
           />
-
+         <p><a className="Link" href="api/ss">{this.state.ScientificName}</a></p>
     </div>
     )
   }
