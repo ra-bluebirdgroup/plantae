@@ -13,6 +13,8 @@ class PlantsContainer extends React.Component {
     let API = 'http://localhost:3000/api/v1/plants'
     if (this.props.api) {
       API = this.props.api
+    } else if (this.props.food_api) {
+      API = this.props.food_api
     }
     fetch(API, {
     method: "GET",
@@ -49,7 +51,10 @@ componentDidUpdate(prevProps) {
    let API = 'http://localhost:3000/api/v1/plants'
    if (this.props.api) {
      API = this.props.api
+   } else if (this.props.food_api) {
+     API = this.props.food_api
    }
+
    if (e.target.innerText === "☚") {
      fetch(API, {
      method: "GET",
@@ -99,8 +104,9 @@ componentDidUpdate(prevProps) {
  }
   render(){
      let backButton = ""
-
+      let forwardButton = ""
      this.state.currentPage > 1 ? backButton = <button onClick={this.handleClick}className="navButtons"> ☚ </button> : backButton = ""
+      this.props.food_api && this.state.currentPage >= 7 ? forwardButton = "" : forwardButton = <button onClick={this.handleClick}className="navButtons"> ☛ </button>
      console.log(this.state)
     if (this.state.plants.data){
       return(
@@ -109,7 +115,7 @@ componentDidUpdate(prevProps) {
          {
            this.state.plants.data.map(plant => <PlantCard key={plant.id}{...plant}/>)
        }
-       <button onClick={this.handleClick}className="navButtons"> ☛ </button>
+       {forwardButton}
     </div>
       )
     } else {
