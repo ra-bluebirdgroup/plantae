@@ -43,9 +43,18 @@
   height: 300px;
   object-fit: cover;
 }
+
+ .showPage_image {
+   display: block;
+   margin-top: 2%;
+   margin-left: auto;
+   margin-right: auto;
+   width: 50%;
+   filter: grayscale(25%);
+}
+
 .card__image:hover{
   filter: contrast(100%);
-
 }
 
 .logo {
@@ -68,9 +77,16 @@ filter: invert(100%);
    transition-duration: 1s;
  }
 
+ .linkedCard:hover {
+    text-align: center;
+    filter: saturate(300%);
+    background-color: #f5f5f5;
+    transition-duration: 1s;
+  }
+
 a:link {
   text-decoration: none;
-  font-family: Impact;
+  font-family: Helvetica;
     color: #d6efc7;
 }
 

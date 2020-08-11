@@ -49,19 +49,21 @@ class PlantCard extends React.Component {
    })
  }
 
+handleClick = (e) => {
+    this.props.setCurrentPlantId(this.props.id)
+}
 
   render(){
       let {family_ScientificName } = this.props;
-
+      console.log(this.props)
     return(
-      <div onMouseEnter={this.setScientificName} onMouseLeave={this.resetScientificName} className="card">
+      <div onClick={this.handleClick} onMouseEnter={this.setScientificName} onMouseLeave={this.resetScientificName} className="card">
       <img
             src={this.state.image_url}
             alt={this.props.scientific_name}
             className="card__image"
-            // onClick={this.handleClick}
           />
-         <p><a className="Link" href="api/ss">{this.state.ScientificName}</a></p>
+         <p>{this.state.ScientificName}</p>
     </div>
     )
   }

@@ -10,6 +10,7 @@ class PlantsContainer extends React.Component {
   }
 
   getPlants = () => {
+    console.log(this.props)
     let API = 'http://localhost:3000/api/v1/plants'
     if (this.props.api) {
       API = this.props.api
@@ -21,7 +22,7 @@ class PlantsContainer extends React.Component {
     headers: {
       "Content-Type": "application/json",
       "Accept": "application/json",
-      currentPage: this.state.currentPage
+      currentPage: this.props.currentPage
     }
   })
   .then(res => res.json())
@@ -73,7 +74,7 @@ componentDidUpdate(prevProps) {
        this.setState({
          plants: data.data,
          currentPage: Number(data.currentPage)
-       })
+       },()=> this.props.setCurrentPage(Number(data.currentPage)))
      }
     })
 
@@ -96,7 +97,7 @@ componentDidUpdate(prevProps) {
        this.setState({
          plants: data.data,
          currentPage: Number(data.currentPage)
-       })
+       },()=> this.props.setCurrentPage(Number(data.currentPage)))
      }
     })
 
@@ -107,13 +108,13 @@ componentDidUpdate(prevProps) {
       let forwardButton = ""
      this.state.currentPage > 1 ? backButton = <button onClick={this.handleClick}className="navButtons"> ☚ </button> : backButton = ""
       this.props.food_api && this.state.currentPage >= 7 ? forwardButton = "" : forwardButton = <button onClick={this.handleClick}className="navButtons"> ☛ </button>
-     console.log(this.state)
+     console.log(this.props)
     if (this.state.plants.data){
       return(
     <div className="cards">
         {backButton}
          {
-           this.state.plants.data.map(plant => <PlantCard key={plant.id}{...plant}/>)
+           this.state.plants.data.map(plant => <PlantCard key={plant.id} {...plant} {...this.props}/>)
        }
        {forwardButton}
     </div>
