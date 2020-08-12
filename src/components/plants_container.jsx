@@ -39,12 +39,18 @@ class PlantsContainer extends React.Component {
    })
   }
   componentDidMount() {
-   this.getPlants()
+    if (this.props.my_plants){
+      this.setState({plants: this.props.my_plants})
+    } else {
+      this.getPlants()
+    }
   }
 
 componentDidUpdate(prevProps) {
-  if (prevProps !== this.props){
+  if (prevProps !== this.props && !this.props.my_plants){
     this.getPlants()
+ } else if (prevProps !== this.props && this.props.my_plants) {
+    this.setState({plants: this.props.my_plants})
  }
 }
 

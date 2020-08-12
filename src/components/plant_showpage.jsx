@@ -22,13 +22,77 @@ class PlantShowPage extends React.Component {
    })
   }
 
- goBack = (e) => {
+  addOrRemovePlant = (event) => {
+    event.persist()
+  console.log("ok")
+    if (event.target.value === "add to garden!") {
 
-}
+    fetch("http://localhost:3000/api/v1/user_plants", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        Authorization: `Bearer ${this.props.currentUser.token}`
+      },
+      body: JSON.stringify({
+        username: this.props.currentUser.user.username,
+        plantid: this.state.plant.data.scientific_name
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+       if (data.errors) {
+         alert(data.errors)
+      } else {
+        console.log(data)
+        this.props.setUser(data)
+      }
+     })
+
+   } else {
+
+     fetch(`http://localhost:3000/api/v1/user_plants/${this.state.plant.data.id}`, {
+       method: "DELETE",
+       headers: {
+         "Content-Type": "application/json",
+         "Accept": "application/json",
+          Authorization: `Bearer ${this.props.currentUser.token}`
+       },
+       body: JSON.stringify({
+         username: this.props.currentUser.user.username,
+         plantid: this.state.plant.data.id
+       })
+     })
+     .then(res => res.json())
+     .then(data => {
+        if (data.errors) {
+          alert(data.errors)
+       } else {
+         console.log(data)
+         this.props.setUser(data)
+       }
+      })
+   }
+  }
 
   render(){
-    console.log(this.state.plant.data)
+
+console.log(this.props)
     if(this.state.plant.data){
+     let my_garden = []
+     let addOrRemove = "add to garden!"
+     let addOrRemoveButton = ""
+
+     if (this.props.currentUser && this.props.currentUser.userplants.length > 0){
+       console.log(this.props.currentUser.userplants)
+  my_garden = this.props.currentUser.userplants.map(plant => plant.id)
+   my_garden.includes(this.state.plant.data.id) ? addOrRemove = "remove to garden!" :  addOrRemove = "add to garden!"
+}
+
+       if (this.props.currentUser){
+        addOrRemoveButton = <button onClick={this.addOrRemovePlant} className="card_button" name="cardDetails" value={addOrRemove}>{addOrRemove}</button>
+       }
+
       console.log(this.state)
       let {
       author,
@@ -78,6 +142,7 @@ class PlantShowPage extends React.Component {
      <p>{bibliography}</p>
 
      <button onClick={()=>this.props.history.goBack()}> back ↩ </button>
+      {addOrRemoveButton}
     </div>
     )
   } else {

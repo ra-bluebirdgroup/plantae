@@ -90,7 +90,7 @@ if (this.state.currentUser) {
     <Route exact path="/flowers" render={(routerProps)=> <PlantsContainer setCurrentPage={this.setCurrentPage} setCurrentPlantId={this.setCurrentPlantId} api={"http://localhost:3000/api/v1/flowers"} setUser={this.setUser} {...this.state} {...routerProps}/>}/>
     <Route exact path="/food" render={(routerProps)=> <PlantsContainer setCurrentPage={this.setCurrentPage} setCurrentPlantId={this.setCurrentPlantId} food_api={"http://localhost:3000/api/v1/food"} setUser={this.setUser} {...this.state} {...routerProps}/>}/>
     <Route exact path={`/plants/page=${this.state.currentPage}`} render={(routerProps)=> <PlantsContainer setCurrentPage={this.setCurrentPage} setCurrentPlantId={this.setCurrentPlantId} setUser={this.setUser} {...this.state} {...routerProps}/>}/>
-    <Route exact path={`/plants/${this.state.currentPlantId}`} render={(routerProps)=> <PlantShowPage setCurrentPage={this.setCurrentPage} {...this.state} {...routerProps}/>}/>
+    <Route exact path={`/plants/${this.state.currentPlantId}`} render={(routerProps)=> <PlantShowPage setUser={this.setUser} setCurrentPage={this.setCurrentPage} {...this.state} {...routerProps}/>}/>
     <Route exact path="/signup" render={(routerProps)=> <SignUp setUser={this.setUser} {...routerProps}/>}/>
     <Route exact path="/login" render={(routerProps)=> <LogIn setUser={this.setUser} {...routerProps}/>}/>
     <Route exact path="/logout" render={(routerProps)=> <LogOut setUser={this.setUser} {...routerProps}/>}/>

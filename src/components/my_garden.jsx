@@ -7,30 +7,52 @@ class MyGarden extends React.Component {
  }
 
  componentDidMount() {
-  //  console.log(this.props.currentUser)
-   if (this.props.currentUser && this.props.currentUser[1]) {
-       let trefleId = this.props.currentUser[1].map(plant => plant.trefleId)
-   fetch(`https://api.nomics.com/v1/currencies/ticker?key=${process.env.REACT_APP_API_KEY}&ids=${trefleId.join()}&interval=1d,30d&convert=USD`)
-     .then(response => response.json())
-     .then(data => {
-        this.setState({my_plants: data})
-
+   if (this.props.currentUser && this.props.currentUser.userplants.length > 0) {
+     fetch("http://localhost:3000/api/v1/userplants", {
+       method: "POST",
+       headers: {
+         "Content-Type": "application/json",
+         "Accept": "application/json"
+       },
+       body: JSON.stringify({
+         userplants: this.props.currentUser.userplants
+       })
      })
+     .then(res => res.json())
+     .then(data => {
+       console.log(data.data)
+          this.setState({my_plants: data.data})
+      })
    }
-
  }
 
- componentDidUpdate(prevProps){
-
+ componentDidUpdate(prevProps) {
+    if (prevProps !== this.props) {
+      fetch("http://localhost:3000/api/v1/userplants", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          userplants: this.props.currentUser.userplants
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data.data)
+           this.setState({my_plants: data.data})
+       })
+    }
  }
 
   render(){
-    console.log(this.props)
-    if (this.props.currentUser && this.state.my_plants.length > 0) {
+    console.log(this.state)
+    if (this.state.my_plants.data && this.state.my_plants.data.length > 0) {
       // console.log(this.state)
     return(
       <>
-       <h1>Welcome {this.props.currentUser[0].user_name}</h1>
+       <h1>Welcome {this.props.currentUser.username}</h1>
        <h1>Your Plants:</h1>
        <div className="cards">
                 <PlantsContainer
