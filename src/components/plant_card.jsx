@@ -61,7 +61,7 @@ handleClick = (e) => {
       <img
             src={this.state.image_url}
             alt={this.props.scientific_name}
-            className="card__image"
+            className="card_image"
           />
          <p>{this.state.ScientificName}</p>
     </div>

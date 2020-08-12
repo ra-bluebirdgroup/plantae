@@ -1,8 +1,7 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 import logo from "./PlantaeLogo.png";
-
-const NavBar = (props) => {
+const UserNavBar = props => {
   return (
     <>
         <a href="/">
@@ -18,18 +17,21 @@ const NavBar = (props) => {
         <Link className="Link" to="/food">
           Food
         </Link>
-        <Link className="Link" to="/login">
-          Log in
+        <Link className="Link" to="/identifier">
+          Identifier
         </Link>
-        <Link className="Link" to="/signup">
-          Sign Up
+        <Link className="Link" to="/community">
+          Community
         </Link>
-        <Link className="Link" to="/info">
-          Info
+        <Link className="Link" to="/my_garden">
+          My Garden
+        </Link>
+        <Link className="Link" to="/log_out">
+          Log Out
         </Link>
       </div>
     </>
   )
 }
 
-export default NavBar
+export default UserNavBar
