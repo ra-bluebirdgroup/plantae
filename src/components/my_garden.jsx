@@ -57,7 +57,7 @@ class MyGarden extends React.Component {
        <div className="cards">
                 <PlantsContainer
                 currentUser={this.props.currentUser}
-                setUser={this.props.setUser}
+                {...this.props}
                 my_plants={this.state.my_plants}/>
        </div>
        </>
