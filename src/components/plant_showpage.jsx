@@ -14,7 +14,6 @@ class PlantShowPage extends React.Component {
      if (data.errors) {
        alert(data.errors)
     } else {
-      console.log(data)
       this.setState({
         plant: data.data
       })
@@ -51,7 +50,7 @@ class PlantShowPage extends React.Component {
 
    } else {
 
-     fetch(`http://localhost:3000/api/v1/user_plants/${this.state.plant.data.id}`, {
+     fetch(`http://localhost:3000/api/v1/user_plants/${this.state.plant.data.scientific_name}`, {
        method: "DELETE",
        headers: {
          "Content-Type": "application/json",
@@ -60,15 +59,15 @@ class PlantShowPage extends React.Component {
        },
        body: JSON.stringify({
          username: this.props.currentUser.user.username,
-         plantid: this.state.plant.data.id
+         plantid: this.state.plant.data.scientific_name
        })
      })
      .then(res => res.json())
      .then(data => {
+            console.log(data)
         if (data.errors) {
           alert(data.errors)
        } else {
-         console.log(data)
          this.props.setUser(data)
        }
       })
@@ -76,24 +75,21 @@ class PlantShowPage extends React.Component {
   }
 
   render(){
-
-console.log(this.props)
     if(this.state.plant.data){
      let my_garden = []
-     let addOrRemove = "add to garden!"
+     let addOrRemove = ""
      let addOrRemoveButton = ""
 
      if (this.props.currentUser && this.props.currentUser.userplants.length > 0){
-       console.log(this.props.currentUser.userplants)
-  my_garden = this.props.currentUser.userplants.map(plant => plant.id)
-   my_garden.includes(this.state.plant.data.id) ? addOrRemove = "remove to garden!" :  addOrRemove = "add to garden!"
+
+  my_garden = this.props.currentUser.userplants.map(plant => plant.scientific_name)
+   my_garden.includes(this.state.plant.data.scientific_name) ? addOrRemove = "remove from garden!" :  addOrRemove = "add to garden!"
 }
 
        if (this.props.currentUser){
         addOrRemoveButton = <button onClick={this.addOrRemovePlant} className="card_button" name="cardDetails" value={addOrRemove}>{addOrRemove}</button>
        }
 
-      console.log(this.state)
       let {
       author,
       bibliography,
@@ -131,11 +127,11 @@ console.log(this.props)
      <p>Species: {main_species.common_name}</p>
      <p>Observations: {observations}</p>
      <p>Resources:</p>
-     <p>{sources.map((source) => <a href={source.url}>{source.url}</a>)}</p>
+     <div>{sources.map((source, index) => <a key={index} href={source.url}>{source.url}</a>)}</div>
       <p>Subspecies:</p>
-     <p>{subspecies.map((subspecies) => <>{subspecies.common_name}, </>)}</p>
+     <div>{subspecies.map((subspecies, index) => <p key={index} >{subspecies.common_name}, </p>)}</div>
       <p>Varieties:</p>
-     <p>{varieties.map((varieties) => <>{varieties.common_name}</>)}</p>
+     <div>{varieties.map((varieties, index) => <p key={index} >{varieties.common_name}</p>)}</div>
      <p>{vegetable}</p>
      <p>{year}</p>
      <p>{author}</p>

@@ -52,7 +52,7 @@ class MyGarden extends React.Component {
       // console.log(this.state)
     return(
       <>
-       <h1>Welcome {this.props.currentUser.username}</h1>
+       <h1>Welcome {this.props.currentUser.user.username}</h1>
        <h1>Your Plants:</h1>
        <div className="cards">
                 <PlantsContainer

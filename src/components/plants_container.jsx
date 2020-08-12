@@ -30,7 +30,7 @@ class PlantsContainer extends React.Component {
      if (data.errors) {
        alert(data.errors)
     } else {
-      console.log(data)
+
       this.setState({
         plants: data.data,
         currentPage: Number(data.currentPage)
@@ -114,7 +114,7 @@ componentDidUpdate(prevProps) {
       let forwardButton = ""
      this.state.currentPage > 1 ? backButton = <button onClick={this.handleClick}className="navButtons"> ☚ </button> : backButton = ""
       this.props.food_api && this.state.currentPage >= 7 ? forwardButton = "" : forwardButton = <button onClick={this.handleClick}className="navButtons"> ☛ </button>
-     console.log(this.props)
+
     if (this.state.plants.data){
       return(
     <div className="cards">
