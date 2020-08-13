@@ -45,7 +45,7 @@ class App extends React.Component {
 
  setUser = (user) => {
    console.log(user)
-   if (user.errors) {
+   if (user && user.errors) {
     alert(user.errors)
   } else if (user) {
     this.setState({
@@ -53,14 +53,14 @@ class App extends React.Component {
    },()=> {
      console.log(user)
      localStorage.user_id = user.user.id
-     this.props.history.push('/my_garden')
+     this.props.history.push('/identifier')
    })
  } else {
    this.setState({
      currentUser: user
   },()=> this.props.history.push('/'))
   }
-  console.log(this.state)
+
  }
 
  setCurrentPlantId = plantId => {
@@ -94,9 +94,9 @@ if (this.state.currentUser) {
     <Route exact path={`/plants/${this.state.currentPlantId}`} render={(routerProps)=> <PlantShowPage setUser={this.setUser} setCurrentPage={this.setCurrentPage} {...this.state} {...routerProps}/>}/>
     <Route exact path="/signup" render={(routerProps)=> <SignUp setUser={this.setUser} {...routerProps}/>}/>
     <Route exact path="/login" render={(routerProps)=> <LogIn setUser={this.setUser} {...routerProps}/>}/>
-    <Route exact path="/logout" render={(routerProps)=> <LogOut setUser={this.setUser} {...routerProps}/>}/>
+    <Route exact path="/log_out" render={(routerProps)=> <LogOut setUser={this.setUser} {...routerProps}/>}/>
     <Route exact path="/info" render={(routerProps)=> <Info {...routerProps}/>}/>
-    <Route exact path="/identifier" render={(routerProps)=> <Identifier {...this.state} {...routerProps}/>}/>
+    <Route exact path="/identifier" render={(routerProps)=> <Identifier setUser={this.setUser} {...this.state} {...routerProps}/>}/>
     <Route exact path="/my_garden" render={(routerProps)=> <MyGarden setUser={this.setUser} setCurrentPage={this.setCurrentPage} setCurrentPlantId={this.setCurrentPlantId} {...this.state} {...routerProps}/>}/>
     </Switch>
     </div>

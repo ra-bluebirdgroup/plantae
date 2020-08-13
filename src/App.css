@@ -45,16 +45,12 @@
 }
 
 .tenor{
+  float: center;
   display: block;
-  margin-top: 6%;
   margin-left: auto;
   margin-right: auto;
   width: 15%;
   filter: saturate(200%);
-  position:absolute;
-      top: 380px;
-      left: 560px;
-      z-index: 1;
 }
 
  .showPage_image {
@@ -129,7 +125,6 @@ a:visited {
 }
 
 .center-form {
-
  background: #f1f1f1;
  max-width: 360px;
  margin: 0 auto 25px;
@@ -143,7 +138,7 @@ a:visited {
  background: #f1f1f1;
  max-width: 360px;
  margin: 0 auto 25px;
- margin-top: 15%;
+ margin-top: -3%;
  padding: 45px;
  text-align: center;
  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
@@ -164,6 +159,55 @@ input[type=text], input[type=password], input[type=username]{
  padding: 12px 20px;
  margin: 8px 0;
  box-sizing: border-box;
+}
+.container {
+  padding: 5% 5%;
+}
+
+/* CSS talk bubble */
+.talk-bubble {
+  float: center;
+	margin-top: 40px;
+  margin-left:  170px;
+  display: inline-block;
+  position: relative;
+	width: 200px;
+	height: auto;
+	background-color: lightyellow;
+  border: 8px solid #666;
+}
+
+.triangle {
+  float: center;
+  margin-left:  70px;
+  display: inline-block;
+  position: relative;
+  width: 0;
+height: 0;
+border-left: 20px solid transparent;
+border-right: 20px solid transparent;
+
+border-top: 20px solid #666;
+	background-color: lightyellow;
+}
+
+.round{
+  border-radius: 30px;
+	-webkit-border-radius: 30px;
+	-moz-border-radius: 30px;
+
+}
+
+.talktext{
+  padding: 1em;
+	text-align: left;
+  line-height: 1.5em;
+}
+
+.talktext p{
+  /* remove webkit p margins */
+  -webkit-margin-before: 0em;
+  -webkit-margin-after: 0em;
 }
 
 .App-header {
