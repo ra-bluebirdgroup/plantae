@@ -44,6 +44,19 @@
   object-fit: cover;
 }
 
+.tenor{
+  display: block;
+  margin-top: 6%;
+  margin-left: auto;
+  margin-right: auto;
+  width: 15%;
+  filter: saturate(200%);
+  position:absolute;
+      top: 380px;
+      left: 560px;
+      z-index: 1;
+}
+
  .showPage_image {
    display: block;
    margin-top: 2%;
@@ -116,10 +129,21 @@ a:visited {
 }
 
 .center-form {
+
  background: #f1f1f1;
  max-width: 360px;
  margin: 0 auto 25px;
  margin-top: 2%;
+ padding: 45px;
+ text-align: center;
+ box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.identifier-form {
+ background: #f1f1f1;
+ max-width: 360px;
+ margin: 0 auto 25px;
+ margin-top: 15%;
  padding: 45px;
  text-align: center;
  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);

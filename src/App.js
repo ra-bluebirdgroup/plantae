@@ -11,6 +11,7 @@ import UserNavbar from "./components/user_navbar";
 import LogIn from "./components/log_in";
 import LogOut from "./components/log_out";
 import Info from "./components/info";
+import Identifier from "./components/identifier";
 import MyGarden from "./components/my_garden";
 
 class App extends React.Component {
@@ -94,7 +95,8 @@ if (this.state.currentUser) {
     <Route exact path="/signup" render={(routerProps)=> <SignUp setUser={this.setUser} {...routerProps}/>}/>
     <Route exact path="/login" render={(routerProps)=> <LogIn setUser={this.setUser} {...routerProps}/>}/>
     <Route exact path="/logout" render={(routerProps)=> <LogOut setUser={this.setUser} {...routerProps}/>}/>
-    <Route exact path="/info" render={(routerProps)=> <Info setUser={this.setUser} {...routerProps}/>}/>
+    <Route exact path="/info" render={(routerProps)=> <Info {...routerProps}/>}/>
+    <Route exact path="/identifier" render={(routerProps)=> <Identifier {...this.state} {...routerProps}/>}/>
     <Route exact path="/my_garden" render={(routerProps)=> <MyGarden setUser={this.setUser} setCurrentPage={this.setCurrentPage} setCurrentPlantId={this.setCurrentPlantId} {...this.state} {...routerProps}/>}/>
     </Switch>
     </div>
