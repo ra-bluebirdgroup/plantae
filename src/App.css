@@ -76,6 +76,7 @@
   filter: grayscale(25%);
 }
 
+
 .logo:hover{
 filter: invert(100%);
 }
@@ -171,7 +172,7 @@ input[type=text], input[type=password], input[type=username]{
   margin-left:  170px;
   display: inline-block;
   position: relative;
-	width: 200px;
+	width: 260px;
 	height: auto;
 	background-color: lightyellow;
   border: 8px solid #666;

@@ -1,4 +1,5 @@
 import React from "react";
+import TextLoop from "react-text-loop";
 import tenor from "./tenor.gif";
 
 class Identifier extends React.Component {
@@ -81,10 +82,22 @@ class Identifier extends React.Component {
     if (this.props.currentUser) {
 
     return(
-      <>
+      <div className="identifier-page">
       <div className="talk-bubble tri-right border round btm-left-in">
       <div className="talktext">
-        <p>Now we add a border and it looks like a comic. Uses .border .round and .btm-left-in</p>
+      <h2>
+               <TextLoop interval={2000} springConfig={{ stiffness: 150 }}>
+                  <span>Greetings {this.props.currentUser.user.username}...</span>
+                   <span>Welcome to Plantae!</span>
+                   <span>My name is Wol</span>
+                   <span>an old wise owl</span>
+                   <span>if you need advice</span>
+                   <span>identifiying a plant</span>
+                   <span>show me an image</span>
+                   <span>and get my opinion</span>
+                   <span></span>
+               </TextLoop>{" "}
+           </h2>
       </div>
       </div><br/>
       <div className="triangle">
@@ -112,7 +125,7 @@ class Identifier extends React.Component {
            </button>
           </form>
        </div>
-       </>
+       </div>
     )
   } else {
     return(
