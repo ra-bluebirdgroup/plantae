@@ -1,6 +1,6 @@
 import React from "react";
 import TextLoop from "react-text-loop";
-import tenor from "./tenor.gif";
+import Wol from "./Wol.gif";
 
 class Identifier extends React.Component {
  state = {
@@ -103,7 +103,7 @@ class Identifier extends React.Component {
       <div className="triangle">
       </div>
       <img
-            src={tenor}
+            src={`${Wol}?a=${Math.random(1)}`}
             alt={this.props.scientific_name}
             className="tenor"
           />
