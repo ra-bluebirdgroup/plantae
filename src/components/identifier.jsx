@@ -5,53 +5,18 @@ import Wol from "./Wol.gif";
 class Identifier extends React.Component {
  state = {
    imagePath: "",
-   indentifierResponse: []
- }
- content: {
-   content: ' ';
-   position: "absolute";
-   width: "0";
-   height: "0";
-   left: "-8px";
-   right: "auto";
-   top: "auto";
-   bottom: "-40px";
-   border: "32px solid";
-   color: "transparent transparent transparent #666";
-   "&::after": {
-     content: ' ';
-     position:" absolute";
-     width: "0";
-     height: "0";
-     left:" 0px";
-     right: "auto";
-     top: "auto";
-     bottom: "-20px";
-     border: "22px solid";
-     color: "transparent transparent transparent lightyellow";
-
-        }
-    }
-
- componentDidMount(){
-   const user_id = localStorage.user_id
-
-   if (user_id) {
-    fetch("http://localhost:3000/api/v1/auto_login", {
-      headers: {
-        "Authorization": user_id
-      }
-    })
-    .then(res => res.json())
-    .then(response => {
-      if (response.errors){
-       alert(response.errors)
-     } else {
-        this.props.setUser(response)
-       }
-    })
-  }
-
+   indentifierResponse: [
+     <span>Greetings {this.props.currentUser && this.props.currentUser.user.username}...</span>,
+    <span>Welcome to Plantae!</span>,
+    <span>My name is Wol</span>,
+    <span>an old wise owl</span>,
+    <span>if you need advice</span>,
+    <span>identifiying a plant</span>,
+    <span>show me an image</span>,
+    <span>and get my opinion</span>,
+    <span></span>
+  ],
+  queryImage: null
  }
 
  postIdentification = e => {
@@ -68,8 +33,12 @@ class Identifier extends React.Component {
      })
      .then(res => res.json())
      .then(data => {
-       console.log(data.data)
-          this.setState({indentifierResponse: data})
+       console.log(data)
+          this.setState({
+            indentifierResponse: data.descriptions,
+            queryImage: this.state.imagePath,
+            imagePath: ""
+          })
       })
  }
 
@@ -78,24 +47,27 @@ class Identifier extends React.Component {
  }
 
   render(){
+    let queryImage = ""
     console.log(this.state)
+    if (this.state.queryImage){
+      let src = this.state.queryImage
+      queryImage = <img
+            src={src}
+            alt={this.props.scientific_name}
+            className="queryImage"
+          />;
+    }
+
     if (this.props.currentUser) {
 
     return(
+
       <div className="identifier-page">
+      {queryImage}
       <div className="talk-bubble tri-right border round btm-left-in">
       <div className="talktext">
       <h2>
-               <TextLoop interval={2000} springConfig={{ stiffness: 150 }}>
-                  <span>Greetings {this.props.currentUser.user.username}...</span>
-                   <span>Welcome to Plantae!</span>
-                   <span>My name is Wol</span>
-                   <span>an old wise owl</span>
-                   <span>if you need advice</span>
-                   <span>identifiying a plant</span>
-                   <span>show me an image</span>
-                   <span>and get my opinion</span>
-                   <span></span>
+               <TextLoop children={this.state.indentifierResponse}interval={2000} springConfig={{ stiffness: 150 }}>
                </TextLoop>{" "}
            </h2>
       </div>
@@ -103,7 +75,7 @@ class Identifier extends React.Component {
       <div className="triangle">
       </div>
       <img
-            src={`${Wol}?a=${Math.random(1)}`}
+            src={Wol}
             alt={this.props.scientific_name}
             className="tenor"
           />
@@ -115,7 +87,7 @@ class Identifier extends React.Component {
            <p>enter image url or local path</p>
            <input
              name="image_url"
-             value={this.state.image_url}
+             value={this.state.imagePath}
              type="image_url"
              onChange={this.updateImagePath}
              placeholder="image url"
