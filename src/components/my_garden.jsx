@@ -21,7 +21,7 @@ class MyGarden extends React.Component {
      .then(res => res.json())
      .then(data => {
        console.log(data.data)
-          this.setState({my_plants: data.data})
+          this.setState({my_plants: data.data.data})
       })
    }
  }
@@ -48,7 +48,7 @@ class MyGarden extends React.Component {
 
   render(){
     console.log(this.state)
-    if (this.state.my_plants.data && this.state.my_plants.data.length > 0) {
+    if (this.state.my_plants.length > 0) {
       // console.log(this.state)
     return(
       <>

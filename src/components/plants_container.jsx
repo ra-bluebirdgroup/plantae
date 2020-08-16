@@ -32,7 +32,7 @@ class PlantsContainer extends React.Component {
     } else {
 
       this.setState({
-        plants: data.data,
+        plants: data.data.data,
         currentPage: Number(data.currentPage)
       })
     }
@@ -78,7 +78,7 @@ componentDidUpdate(prevProps) {
      } else {
        console.log(data)
        this.setState({
-         plants: data.data,
+         plants: data.data.data,
          currentPage: Number(data.currentPage)
        },()=> this.props.setCurrentPage(Number(data.currentPage)))
      }
@@ -110,17 +110,18 @@ componentDidUpdate(prevProps) {
    }
  }
   render(){
-     let backButton = ""
-      let forwardButton = ""
+    let backButton = ""
+    let forwardButton = ""
+  
      this.state.currentPage > 1 ? backButton = <button onClick={this.handleClick}className="navButtons"> ☚ </button> : backButton = ""
       this.props.food_api && this.state.currentPage >= 7 ? forwardButton = "" : forwardButton = <button onClick={this.handleClick}className="navButtons"> ☛ </button>
-
-    if (this.state.plants.data){
+     console.log(this.state)
+    if (this.state.plants.length > 0 ){
       return(
     <div className="cards">
         {backButton}
          {
-           this.state.plants.data.map(plant => <PlantCard key={plant.id} {...plant} {...this.props}/>)
+           this.state.plants.map(plant => <PlantCard key={plant.id} {...plant} {...this.props}/>)
        }
        {forwardButton}
     </div>

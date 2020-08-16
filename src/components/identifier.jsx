@@ -1,10 +1,12 @@
 import React from "react";
+import PlantsContainer from "./plants_container";
 import TextLoop from "react-text-loop";
 import Wol from "./Wol.gif";
 
 class Identifier extends React.Component {
  state = {
    imagePath: "",
+   plants: [],
    indentifierResponse: [
      <span>Greetings {this.props.currentUser && this.props.currentUser.user.username}...</span>,
     <span>Welcome to Plantae!</span>,
@@ -34,12 +36,22 @@ class Identifier extends React.Component {
      .then(res => res.json())
      .then(data => {
        console.log(data)
+       if (data.error) {
+         this.setState({
+           indentifierResponse: ["input cant be blank.", "give me a link", "or local path", "and try again!"],
+           queryImage: this.state.imagePath,
+           imagePath: ""
+         })
+      } else {
+        console.log(data)
           this.setState({
+             plants: data.plants,
             indentifierResponse: data.descriptions,
             queryImage: this.state.imagePath,
             imagePath: ""
           })
-      })
+      }
+    })
  }
 
  updateImagePath = e => {
@@ -48,7 +60,9 @@ class Identifier extends React.Component {
 
   render(){
     let queryImage = ""
+    let plants = ""
     console.log(this.state)
+
     if (this.state.queryImage){
       let src = this.state.queryImage
       queryImage = <img
@@ -58,10 +72,26 @@ class Identifier extends React.Component {
           />;
     }
 
+    if (this.state.plants.length > 0) {
+      // console.log(this.state)
+      plants =
+      <>
+       <h1>Here are Wol's top picks form the Plantae Kingdom:</h1>
+       <div className="cards">
+                <PlantsContainer
+                currentUser={this.props.currentUser}
+                {...this.props}
+                identifier={true}
+                my_plants={this.state.plants[0]}/>
+
+       </div>
+       </>
+  }
+
     if (this.props.currentUser) {
 
     return(
-
+      <>
       <div className="identifier-page">
       {queryImage}
       <div className="talk-bubble tri-right border round btm-left-in">
@@ -98,6 +128,11 @@ class Identifier extends React.Component {
           </form>
        </div>
        </div>
+       <div>
+       {plants}
+       </div>
+       </>
+
     )
   } else {
     return(

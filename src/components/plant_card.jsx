@@ -8,6 +8,7 @@ class PlantCard extends React.Component {
   }
 
   componentDidMount(){
+    console.log(this.props)
     if (!this.props.image_url) {
 
       let API = 'http://localhost:3000/api/v1/getImage'
