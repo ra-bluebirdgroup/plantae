@@ -21,8 +21,19 @@ class Identifier extends React.Component {
   queryImage: null
  }
 
- postIdentification = e => {
+ componentDidMount() {
+   if (this.state.queryImage) {
+
+   }
+ }
+
+ postIdentification = (e) => {
    e.preventDefault()
+   let imagePath = this.state.imagePath
+
+   if (this.state.queryImage) {
+      imagePath =  this.state.queryImage
+   }
      fetch("http://localhost:3000/api/v1/identifier", {
        method: "POST",
        headers: {
@@ -30,7 +41,7 @@ class Identifier extends React.Component {
          "Accept": "application/json"
        },
        body: JSON.stringify({
-         imagePath: this.state.imagePath
+         imagePath: imagePath
        })
      })
      .then(res => res.json())
@@ -58,6 +69,10 @@ class Identifier extends React.Component {
   this.setState({ imagePath: e.target.value})
  }
 
+ backToWol = (e, imagePath) => {
+  this.setState({ imagePath: imagePath}, ()=> {this.postIdentification(e)})
+ }
+
   render(){
     let queryImage = ""
     let plants = ""
@@ -81,7 +96,8 @@ class Identifier extends React.Component {
                 <PlantsContainer
                 currentUser={this.props.currentUser}
                 {...this.props}
-                identifier={true}
+                backToWol={this.backToWol}
+                identifier={this.imagePath}
                 my_plants={this.state.plants[0]}/>
 
        </div>

@@ -53,7 +53,7 @@ class App extends React.Component {
    },()=> {
      console.log(user)
      localStorage.user_id = user.user.id
-     this.props.history.push('/')
+     this.props.history.push('/my_garden')
    })
  } else {
    this.setState({
