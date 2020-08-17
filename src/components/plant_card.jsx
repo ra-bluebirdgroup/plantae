@@ -51,7 +51,8 @@ class PlantCard extends React.Component {
  }
 
 handleClick = (e) => {
-    this.props.setCurrentPlantId(this.props.id)
+  console.log(this.props)
+    this.props.setCurrentPlantId(this.props)
 }
 
   render(){

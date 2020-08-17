@@ -17,8 +17,10 @@ import MyGarden from "./components/my_garden";
 class App extends React.Component {
  state = {
    currentUser: null,
-   currentPlantId: 0,
-   currentPage: 1
+   currentPlant: 0,
+   currentPage: 1,
+   imagePath: null,
+   queryImage: null
  }
 
  componentDidMount(){
@@ -35,7 +37,6 @@ class App extends React.Component {
       if (response.errors){
        alert(response.errors)
      } else {
-
         this.setUser(response)
        }
     })
@@ -53,7 +54,12 @@ class App extends React.Component {
    },()=> {
      console.log(user)
      localStorage.user_id = user.user.id
+
+     if(this.state.imagePath) {
+     this.props.history.push('/identifier')
+   } else {
      this.props.history.push('/my_garden')
+   }
    })
  } else {
    this.setState({
@@ -63,16 +69,23 @@ class App extends React.Component {
 
  }
 
- setCurrentPlantId = plantId => {
+ setCurrentPlantId = (plant) => {
   this.setState({
-    currentPlantId: plantId
-  },()=> this.props.history.push(`/plants/${plantId}`))
+    currentPlant: plant,
+    queryImage: plant.queryImage
+  },()=> this.props.history.push(`/plants/${plant.id}`))
  }
 
  setCurrentPage = pageNumer => {
   this.setState({
     currentPage: pageNumer
   },()=> this.props.history.push(`/plants/page=${pageNumer}`))
+ }
+
+ backToWol = (e, queryImage) => {
+   console.log(queryImage)
+  this.props.history.replace('/identifier')
+  this.setState({ queryImage: queryImage})
  }
 
 render() {
@@ -91,12 +104,12 @@ if (this.state.currentUser) {
     <Route exact path="/flowers" render={(routerProps)=> <PlantsContainer setCurrentPage={this.setCurrentPage} setCurrentPlantId={this.setCurrentPlantId} api={"http://localhost:3000/api/v1/flowers"} setUser={this.setUser} {...this.state} {...routerProps}/>}/>
     <Route exact path="/food" render={(routerProps)=> <PlantsContainer setCurrentPage={this.setCurrentPage} setCurrentPlantId={this.setCurrentPlantId} food_api={"http://localhost:3000/api/v1/food"} setUser={this.setUser} {...this.state} {...routerProps}/>}/>
     <Route exact path={`/plants/page=${this.state.currentPage}`} render={(routerProps)=> <PlantsContainer setCurrentPage={this.setCurrentPage} setCurrentPlantId={this.setCurrentPlantId} setUser={this.setUser} {...this.state} {...routerProps}/>}/>
-    <Route exact path={`/plants/${this.state.currentPlantId}`} render={(routerProps)=> <PlantShowPage setUser={this.setUser} setCurrentPage={this.setCurrentPage} {...this.state} {...routerProps}/>}/>
+    <Route exact path={`/plants/${this.state.currentPlant.id}`} render={(routerProps)=> <PlantShowPage   backToWol={this.backToWol} setUser={this.setUser} setCurrentPage={this.setCurrentPage} {...this.state} {...routerProps}/>}/>
     <Route exact path="/signup" render={(routerProps)=> <SignUp setUser={this.setUser} {...routerProps}/>}/>
     <Route exact path="/login" render={(routerProps)=> <LogIn setUser={this.setUser} {...routerProps}/>}/>
     <Route exact path="/log_out" render={(routerProps)=> <LogOut setUser={this.setUser} {...routerProps}/>}/>
     <Route exact path="/info" render={(routerProps)=> <Info {...routerProps}/>}/>
-    <Route exact path="/identifier" render={(routerProps)=> <Identifier setUser={this.setUser} setCurrentPage={this.setCurrentPage} setCurrentPlantId={this.setCurrentPlantId} {...this.state} {...routerProps}/>}/>
+    <Route exact path="/identifier" render={(routerProps)=> <Identifier   backToWol={this.backToWol} setUser={this.setUser} setCurrentPage={this.setCurrentPage} setCurrentPlantId={this.setCurrentPlantId} {...this.state} {...routerProps}/>}/>
     <Route exact path="/my_garden" render={(routerProps)=> <MyGarden setUser={this.setUser} setCurrentPage={this.setCurrentPage} setCurrentPlantId={this.setCurrentPlantId} {...this.state} {...routerProps}/>}/>
     </Switch>
     </div>

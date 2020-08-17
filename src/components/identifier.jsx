@@ -22,13 +22,15 @@ class Identifier extends React.Component {
  }
 
  componentDidMount() {
-   if (this.state.queryImage) {
-
+   if (this.props.queryImage) {
+     console.log("ok")
+      this.setState({ imagePath: this.props.queryImage },()=> this.postIdentification())
    }
  }
 
  postIdentification = (e) => {
-   e.preventDefault()
+   console.log("ok")
+   e && e.preventDefault()
    let imagePath = this.state.imagePath
 
    if (this.state.queryImage) {
@@ -69,10 +71,6 @@ class Identifier extends React.Component {
   this.setState({ imagePath: e.target.value})
  }
 
- backToWol = (e, imagePath) => {
-  this.setState({ imagePath: imagePath}, ()=> {this.postIdentification(e)})
- }
-
   render(){
     let queryImage = ""
     let plants = ""
@@ -96,7 +94,8 @@ class Identifier extends React.Component {
                 <PlantsContainer
                 currentUser={this.props.currentUser}
                 {...this.props}
-                backToWol={this.backToWol}
+                {...this.state}
+                backToWol={this.props.backToWol}
                 identifier={this.imagePath}
                 my_plants={this.state.plants[0]}/>
 

@@ -7,7 +7,7 @@ class PlantShowPage extends React.Component {
 
   componentDidMount(){
     console.log(this.props)
-    let API = `http://localhost:3000/api/v1/plants/${this.props.currentPlantId}`
+    let API = `http://localhost:3000/api/v1/plants/${this.props.currentPlant.id}`
     fetch(API)
    .then(res => res.json())
    .then(data => {
@@ -74,6 +74,15 @@ class PlantShowPage extends React.Component {
    }
   }
 
+handleBackButtonClick = (e) => {
+  console.log(this.props)
+  if (this.props.currentPlant && this.props.currentPlant.queryImage) {
+    this.props.currentPlant.backToWol(e, this.props.currentPlant.queryImage)
+  } else {
+   this.props.history.goBack()
+  }
+}
+
   render(){
     if(this.state.plant.data){
      let my_garden = []
@@ -137,7 +146,7 @@ class PlantShowPage extends React.Component {
      <p>{author}</p>
      <p>{bibliography}</p>
 
-     <button onClick={()=>this.props.history.goBack()}> back ↩ </button>
+     <button onClick={this.handleBackButtonClick}> back ↩ </button>
       {addOrRemoveButton}
     </div>
     )
