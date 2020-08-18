@@ -112,12 +112,24 @@ componentDidUpdate(prevProps) {
   render(){
     let backButton = ""
     let forwardButton = ""
-  
+    let searchBar = ""
+
      this.state.currentPage > 1 ? backButton = <button onClick={this.handleClick}className="navButtons"> ☚ </button> : backButton = ""
       this.props.food_api && this.state.currentPage >= 7 ? forwardButton = "" : forwardButton = <button onClick={this.handleClick}className="navButtons"> ☛ </button>
      console.log(this.state)
+
+     this.props.my_plants ? searchBar = "" : searchBar = <div className="search">
+     <input
+       type="text"
+       name="filter"
+     /><button className="searchButton"><b>search</b></button>
+     </div>
+
+     
     if (this.state.plants.length > 0 ){
       return(
+    <>
+    {searchBar}
     <div className="cards">
         {backButton}
          {
@@ -125,6 +137,7 @@ componentDidUpdate(prevProps) {
        }
        {forwardButton}
     </div>
+    </>
       )
     } else {
    return(
