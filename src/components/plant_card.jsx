@@ -40,7 +40,7 @@ class PlantCard extends React.Component {
 
  setScientificName = () => {
    this.setState({
-      ScientificName: this.props.scientific_name
+      ScientificName: this.props.common_name
    })
  }
 
@@ -65,7 +65,7 @@ handleClick = (e) => {
             alt={this.props.scientific_name}
             className="card_image"
           />
-         <p>{this.state.ScientificName}</p>
+         <p className="common_name">{this.state.ScientificName}</p>
     </div>
     )
   }

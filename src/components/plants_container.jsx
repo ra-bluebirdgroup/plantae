@@ -6,14 +6,14 @@ import PlantCard from "./plant_card";
 class PlantsContainer extends React.Component {
   state = {
     plants: [],
-    currentPage: 1
+    currentPage: 1,
+    searchTerm: ""
   }
 
-  getPlants = () => {
-    console.log(this.props)
+  getPlants = e => {
     let API = 'http://localhost:3000/api/v1/plants'
-    if (this.props.api) {
-      API = this.props.api
+    if (e || this.props.api) {
+      API = "http://localhost:3000/api/v1/flowers"
     } else if (this.props.food_api) {
       API = this.props.food_api
     }
@@ -22,7 +22,8 @@ class PlantsContainer extends React.Component {
     headers: {
       "Content-Type": "application/json",
       "Accept": "application/json",
-      currentPage: this.props.currentPage
+      currentPage: this.props.currentPage,
+      searchTerm: this.state.searchTerm
     }
   })
   .then(res => res.json())
@@ -57,7 +58,7 @@ componentDidUpdate(prevProps) {
  handleClick = e => {
    let API = 'http://localhost:3000/api/v1/plants'
    if (this.props.api) {
-     API = this.props.api
+     API = "http://localhost:3000/api/v1/flowers"
    } else if (this.props.food_api) {
      API = this.props.food_api
    }
@@ -91,7 +92,8 @@ componentDidUpdate(prevProps) {
      headers: {
        "Content-Type": "application/json",
        "Accept": "application/json",
-       currentPage: this.state.currentPage + 1
+       currentPage: this.state.currentPage + 1 ,
+       searchTerm: this.state.searchTerm
      }
    })
    .then(res => res.json())
@@ -109,6 +111,13 @@ componentDidUpdate(prevProps) {
 
    }
  }
+
+ handleChange = (event) => {
+   this.setState({
+     [event.target.name]: event.target.value
+   })
+ }
+
   render(){
     let backButton = ""
     let forwardButton = ""
@@ -121,11 +130,10 @@ componentDidUpdate(prevProps) {
      this.props.my_plants ? searchBar = "" : searchBar = <div className="search">
      <input
        type="text"
-       name="filter"
-     /><button className="searchButton"><b>search</b></button>
+       name="searchTerm"
+       onChange={this.handleChange}
+     /><button onClick={this.getPlants} name="searchButton" className="searchButton"><b>search</b></button>
      </div>
-
-     
     if (this.state.plants.length > 0 ){
       return(
     <>

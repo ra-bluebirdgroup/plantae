@@ -7,8 +7,8 @@
   cursor: pointer;
   width: 100%;
   opacity: 0.9;
-
 }
+
 .cards {
   justify-content: center;
   display: flex;
@@ -16,19 +16,28 @@
   list-style: none;
   margin: 0;
   padding: 5px;
+  background-color: #e3dfc8;
 }
 
 .card {
   min-width: 70px;
   min-height: 85px;
-  padding: 13px;
-  background-color: f4f6ff;
+  padding: 2px;
   border-radius: 0.25rem;
   box-shadow: 0 20px 40px -14px rgba(0,0,0,0.25);
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  background-color: #f5f1da;
+ border: 8px solid #e3dfc8;
 }
+
+.common_name {
+  text-decoration: none;
+  font-family: Impact;
+  color: #523906;
+}
+
 .card_image {
   background-position: center center;
   background-repeat: no-repeat;
@@ -44,7 +53,7 @@
   object-fit: cover;
 }
 
-.tenor{
+.tenor {
   float: center;
   display: block;
   margin-left: auto;
@@ -53,14 +62,14 @@
   filter: saturate(200%);
 }
 
-.queryImage{
+.queryImage {
   position: absolute;
   display: block;
   margin-left: 1000px;
   margin-right: auto;
   width: 25%;
   filter: saturate(200%);
-    border: 8px solid #666;
+  border: 8px solid #523906;
 }
 
  .showPage_image {
@@ -70,11 +79,13 @@
    margin-right: auto;
    width: 50%;
    filter: saturate(300%);
+   border: 3px solid #523906;
 }
 
 .card_image:hover{
   filter: contrast(100%);
    filter: saturate(300%);
+   border: 1px solid #523906;
 }
 
 .logo {
@@ -88,7 +99,7 @@
 
 
 .logo:hover{
-filter: invert(100%);
+  filter: invert(100%);
 }
 
 .Link:hover {
@@ -108,7 +119,7 @@ filter: invert(100%);
 a:link {
   text-decoration: none;
   font-family: Impact;
-    color: #d6efc7;
+  color: #d6efc7;
 }
 
 a:visited {
@@ -117,6 +128,23 @@ a:visited {
   color: #d6efc7;
 }
 
+p {
+  text-decoration: none;
+  font-family: Helvetica;
+  color: #f5f1da;
+}
+
+.plantData {
+  display: block;
+  margin-top: .5%;
+  margin-bottom: 3%;
+  margin-left: auto;
+  margin-right: auto;
+ border: 8px solid #523906;
+ min-width: 500px;
+ min-height: 85px;
+ background: url('https://s3.amazonaws.com/liftclient-offloading/rebelpig/wp-content/uploads/2018/01/07001139/dark-wood-texture.jpg')
+}
 .NavBar {
   min-height: 20px;
   background-color: rgb(98, 142, 109);
@@ -131,9 +159,6 @@ a:visited {
   text-align: center;
 }
 
-.logo {
-
-}
 
 .center-form {
  background: #f1f1f1;
@@ -156,15 +181,15 @@ a:visited {
 }
 
 .searchButton {
-  background-color: #d7c79e; /* Green */
-   margin-top: 7px;
+  background-color: rgb(98, 142, 109);
+   margin-top: 8px;
+   margin-left: 2px;
    border: none;
    color: white;
    padding: 14px 1px;
-   text-align: center;
    text-decoration: none;
-   font-size: 10px;
-   border-radius: 20%;
+   font-size: 12px;
+   font-family: Impact, Charcoal, sans-serif;
 }
 
 .search {
@@ -175,7 +200,7 @@ a:visited {
   margin-left: auto;
   margin-right: auto;
   margin-top: 1px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   max-height: 20px;
   background-color: #f3f6c8;
 
@@ -187,18 +212,17 @@ a:visited {
   display: inline-block;
   position: relative;
   width: 0;
-height: 0;
-border-left: 25px solid transparent;
-border-right: 20px solid transparent;
+  height: 0;
+  border-left: 25px solid transparent;
+  border-right: 20px solid transparent;
 
-border-top: 20px solid #666;
+  border-top: 20px solid #666;
 	background-color: lightyellow;
 }
 
 .identifier-page{
   background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Atlas_forrest.jpg/1599px-Atlas_forrest.jpg');
   padding: 55px;
-
 }
 
 input[type=text]:focus, input[type=password]:focus {
@@ -217,11 +241,12 @@ input[type=text], input[type=password], input[type=username]{
  margin: 8px 0;
  box-sizing: border-box;
 }
+
 .container {
   padding: 5% 5%;
+
 }
 
-/* CSS talk bubble */
 .talk-bubble {
   float: center;
 	margin-top: 40px;
@@ -234,14 +259,14 @@ input[type=text], input[type=password], input[type=username]{
   border: 8px solid #666;
 }
 
-.round{
+.round {
   border-radius: 30px;
 	-webkit-border-radius: 30px;
 	-moz-border-radius: 30px;
 
 }
 
-.talktext{
+.talktext {
   padding: 1em;
 	text-align: left;
   line-height: 1.5em;

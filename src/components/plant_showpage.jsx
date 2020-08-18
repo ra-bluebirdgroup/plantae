@@ -122,11 +122,12 @@ handleBackButtonClick = (e) => {
     } = this.state.plant.data
     return(
       <div onClick={this.handleClick} onMouseEnter={this.setScientificName} onMouseLeave={this.resetScientificName} className="card">
-      <img
-            src={image_url}
-            alt={this.props.scientific_name}
-            className="showPage_image"
-          />
+    <div className="plantData">
+    <img
+          src={image_url}
+          alt={this.props.scientific_name}
+          className="showPage_image"
+        />
      <p>Common Name: {common_name}</p>
      <p>Scientific Name: {scientific_name}</p>
      <p>Slug: {slug}</p>
@@ -135,17 +136,14 @@ handleBackButtonClick = (e) => {
      <p>Genus: {genus.name}</p>
      <p>Species: {main_species.common_name}</p>
      <p>Observations: {observations}</p>
-     <p>Resources:</p>
-     <div>{sources.map((source, index) => <a key={index} href={source.url}>{source.url}</a>)}</div>
-      <p>Subspecies:</p>
-     <div>{subspecies.map((subspecies, index) => <p key={index} >{subspecies.common_name}, </p>)}</div>
-      <p>Varieties:</p>
-     <div>{varieties.map((varieties, index) => <p key={index} >{varieties.common_name}</p>)}</div>
-     <p>{vegetable}</p>
-     <p>{year}</p>
-     <p>{author}</p>
-     <p>{bibliography}</p>
-
+     <p>Sources:</p>
+     <div>{sources.map((source, index) => <a ckey={index} href={source.url}><p>{source.url}</p></a>)}</div>
+     <div><p>varieties:</p> {varieties.map((varieties, index) => <p key={index} >{varieties.common_name}</p>)}</div>
+     <p>is vegetable:{vegetable}</p>
+     <p>year of publication{year}</p>
+     <p>Author: {author}</p>
+     <p>bibliography: {bibliography}</p>
+</div>
      <button onClick={this.handleBackButtonClick}> back ↩ </button>
       {addOrRemoveButton}
     </div>
