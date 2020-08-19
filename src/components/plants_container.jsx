@@ -34,7 +34,8 @@ class PlantsContainer extends React.Component {
 
       this.setState({
         plants: data.data.data,
-        currentPage: Number(data.currentPage)
+        currentPage: Number(data.currentPage),
+        searchTerm: ""
       })
     }
    })
@@ -92,8 +93,7 @@ componentDidUpdate(prevProps) {
      headers: {
        "Content-Type": "application/json",
        "Accept": "application/json",
-       currentPage: this.state.currentPage + 1 ,
-       searchTerm: this.state.searchTerm
+       currentPage: this.state.currentPage + 1
      }
    })
    .then(res => res.json())
@@ -127,13 +127,16 @@ componentDidUpdate(prevProps) {
       this.props.food_api && this.state.currentPage >= 7 ? forwardButton = "" : forwardButton = <button onClick={this.handleClick}className="navButtons"> ☛ </button>
      console.log(this.state)
 
-     this.props.my_plants ? searchBar = "" : searchBar = <div className="search">
+     this.props.my_plants ? searchBar = "" : searchBar = <div className="search"> ;
+
      <input
        type="text"
        name="searchTerm"
        onChange={this.handleChange}
+       value={this.state.searchTerm}
      /><button onClick={this.getPlants} name="searchButton" className="searchButton"><b>search</b></button>
      </div>
+
     if (this.state.plants.length > 0 ){
       return(
     <>
