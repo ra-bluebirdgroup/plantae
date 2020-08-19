@@ -118,7 +118,7 @@ handleBackButtonClick = (e) => {
   render(){
     if(this.state.plant.data){
      let my_garden = []
-     let addOrRemove = ""
+     let addOrRemove = "add to garden!"
      let addOrRemoveButton = ""
 
      if (this.props.currentUser && this.props.currentUser.userplants.length > 0){
