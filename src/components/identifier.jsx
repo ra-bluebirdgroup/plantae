@@ -127,8 +127,8 @@ class Identifier extends React.Component {
        <div className="identifier-form">
          <h1>Ask Wol</h1>
          <p>the plant identifiying owl</p>
-         <form className="identifier-form" onSubmit={this.postIdentification}>
-         <h1>link to image</h1>
+         <form onSubmit={this.postIdentification}>
+         <h3>link to image</h3>
            <p>enter image url or local path</p>
            <input
              name="image_url"

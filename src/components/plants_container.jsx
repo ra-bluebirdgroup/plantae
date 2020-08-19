@@ -137,7 +137,7 @@ componentDidUpdate(prevProps) {
      /><button onClick={this.getPlants} name="searchButton" className="searchButton"><b>search</b></button>
      </div>
 
-    if (this.state.plants.length > 0 ){
+    if (this.state.plants && this.state.plants.length > 0 ){
       return(
     <>
     {searchBar}

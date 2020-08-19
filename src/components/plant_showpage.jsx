@@ -2,7 +2,39 @@ import React from "react";
 
 class PlantShowPage extends React.Component {
   state = {
-    plant: []
+    plant: [],
+    image_url: ""
+  }
+
+  setImage = () => {
+    console.log(this.props)
+    if (!this.state.plant.data.image_url) {
+
+      let API = 'http://localhost:3000/api/v1/getImage'
+      fetch(API, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        scientificName: this.state.plant.data.scientific_name
+      }
+    })
+    .then(res => res.json())
+    .then(data => {
+       if (data.errors) {
+         alert(data.errors)
+      } else {
+        this.setState({
+          image_url: data.data.hits[Math.floor(Math.random() * 24)].largeImageURL
+        })
+      }
+     })
+  } else {
+   this.setState({
+     image_url: this.state.plant.data.image_url
+   })
+  }
+
   }
 
   componentDidMount(){
@@ -16,7 +48,7 @@ class PlantShowPage extends React.Component {
     } else {
       this.setState({
         plant: data.data
-      })
+      },()=> this.setImage())
     }
    })
   }
@@ -96,7 +128,7 @@ handleBackButtonClick = (e) => {
 }
 
        if (this.props.currentUser){
-        addOrRemoveButton = <button onClick={this.addOrRemovePlant} className="card_button" name="cardDetails" value={addOrRemove}>{addOrRemove}</button>
+        addOrRemoveButton = <button className="showPageButton" onClick={this.addOrRemovePlant} name="cardDetails" value={addOrRemove}>{addOrRemove}</button>
        }
 
       let {
@@ -124,7 +156,7 @@ handleBackButtonClick = (e) => {
       <div onClick={this.handleClick} onMouseEnter={this.setScientificName} onMouseLeave={this.resetScientificName} className="card">
     <div className="plantData">
     <img
-          src={image_url}
+          src={this.state.image_url}
           alt={this.props.scientific_name}
           className="showPage_image"
         />
@@ -134,7 +166,7 @@ handleBackButtonClick = (e) => {
      <p>Family Name: {family.name}</p>
      <p>Family Common Name: {family_common_name}</p>
      <p>Genus: {genus.name}</p>
-     <p>Species: {main_species.common_name}</p>
+     <p>Species: {main_species.common_name ? main_species.common_name : "FerraFatta"}</p>
      <p>Observations: {observations}</p>
      <p>Sources:</p>
      <div>{sources.map((source, index) => <a ckey={index} href={source.url}><p>{source.url}</p></a>)}</div>
@@ -144,7 +176,7 @@ handleBackButtonClick = (e) => {
      <p>Author: {author}</p>
      <p>bibliography: {bibliography}</p>
 </div>
-     <button onClick={this.handleBackButtonClick}> back ↩ </button>
+     <button className="showPageButton" onClick={this.handleBackButtonClick}> back ↩ </button>
       {addOrRemoveButton}
     </div>
     )
