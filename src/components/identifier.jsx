@@ -15,7 +15,7 @@ class Identifier extends React.Component {
     <span>if you need advice</span>,
     <span>identifiying a plant</span>,
     <span>show me an image</span>,
-    <span>and get my opinion</span>,
+    <span>I'll describe it for you!</span>,
     <span></span>
   ],
   queryImage: null
@@ -89,7 +89,9 @@ class Identifier extends React.Component {
       // console.log(this.state)
       plants =
       <>
+      <div className="card">
        <h1>Here are Wol's top picks form the Plantae Kingdom:</h1>
+       </div>
        <div className="cards">
                 <PlantsContainer
                 currentUser={this.props.currentUser}
@@ -112,7 +114,7 @@ class Identifier extends React.Component {
       <div className="talk-bubble tri-right border round btm-left-in">
       <div className="talktext">
       <h2>
-               <TextLoop children={this.state.indentifierResponse}interval={2000} springConfig={{ stiffness: 150 }}>
+               <TextLoop children={this.state.indentifierResponse}interval={1000} springConfig={{ stiffness: 150 }}>
                </TextLoop>{" "}
            </h2>
       </div>

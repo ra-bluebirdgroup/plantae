@@ -17,7 +17,7 @@
   list-style: none;
   margin: 0;
   padding: 5px;
-  background-color: #e3dfc8;
+  background-image: url('https://images.unsplash.com/photo-1463131880619-92e2e9a64ee8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2116&q=80');
 }
 
 .card {
@@ -29,7 +29,7 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  background-color: #f5f1da;
+  background-color: #9dab86;
  border: 8px solid #e3dfc8;
 }
 
@@ -99,7 +99,6 @@
   filter: grayscale(25%);
 }
 
-
 .logo:hover {
   filter: invert(100%);
 }
@@ -114,7 +113,7 @@
  .linkedCard:hover {
     text-align: center;
     filter: saturate(300%);
-    background-color: #f5f5f5;
+    background-color: #d7c79e;
     transition-duration: 1s;
   }
 
@@ -139,7 +138,7 @@ p, h1, h3 {
 .plantData {
   display: block;
   margin-top: .5%;
-  margin-bottom: 3%;
+  margin-bottom: 0%;
   margin-left: auto;
   margin-right: auto;
   border-radius: 10px;

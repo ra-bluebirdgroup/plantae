@@ -52,8 +52,10 @@ class MyGarden extends React.Component {
       // console.log(this.state)
     return(
       <>
-       <h1>Welcome {this.props.currentUser.user.username}</h1>
-       <h1>Your Plants:</h1>
+      <div className="plantData">
+       <h1>Greetings {this.props.currentUser.user.username},</h1>
+       <h1>Welcome to your garden!</h1>
+       </div>
        <div className="cards">
                 <PlantsContainer
                 currentUser={this.props.currentUser}
@@ -66,8 +68,10 @@ class MyGarden extends React.Component {
 
     return(
       <>
+        <div className="plantData">
         <h1>Welcome {this.props.currentUser.user.username}</h1>
         <h1>Tracked plants will be displayed here...</h1>
+        </div>
       </>
     )
   } else {

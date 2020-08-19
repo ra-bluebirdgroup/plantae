@@ -20,9 +20,6 @@ const UserNavBar = props => {
         <Link className="Link" to="/identifier">
           Ask Wol
         </Link>
-        <Link className="Link" to="/community">
-          Community
-        </Link>
         <Link className="Link" to="/my_garden">
           My Garden
         </Link>
