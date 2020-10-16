@@ -55,7 +55,7 @@ class PlantShowPage extends React.Component {
 
   addOrRemovePlant = (event) => {
     event.persist()
-  console.log("ok")
+  console.log(this.props)
     if (event.target.value === "add to garden!") {
 
     fetch("https://theplantaeapi.herokuapp.com/api/v1/user_plants", {
@@ -120,7 +120,7 @@ handleBackButtonClick = (e) => {
      let my_garden = []
      let addOrRemove = "add to garden!"
      let addOrRemoveButton = ""
-
+   console.log(this.props)
      if (this.props.currentUser && this.props.currentUser.userplants.length > 0){
 
   my_garden = this.props.currentUser.userplants.map(plant => plant.scientific_name)
