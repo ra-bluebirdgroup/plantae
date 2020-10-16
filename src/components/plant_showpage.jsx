@@ -10,7 +10,7 @@ class PlantShowPage extends React.Component {
     console.log(this.props)
     if (!this.state.plant.data.image_url) {
 
-      let API = 'http://localhost:3000/api/v1/getImage'
+      let API = 'https://theplantaeapi.herokuapp.com/api/v1/getImage'
       fetch(API, {
       method: "GET",
       headers: {
@@ -39,7 +39,7 @@ class PlantShowPage extends React.Component {
 
   componentDidMount(){
     console.log(this.props)
-    let API = `http://localhost:3000/api/v1/plants/${this.props.currentPlant.id}`
+    let API = `https://theplantaeapi.herokuapp.com/api/v1/plants/${this.props.currentPlant.id}`
     fetch(API)
    .then(res => res.json())
    .then(data => {
@@ -58,7 +58,7 @@ class PlantShowPage extends React.Component {
   console.log("ok")
     if (event.target.value === "add to garden!") {
 
-    fetch("http://localhost:3000/api/v1/user_plants", {
+    fetch("https://theplantaeapi.herokuapp.com/api/v1/user_plants", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -82,7 +82,7 @@ class PlantShowPage extends React.Component {
 
    } else {
 
-     fetch(`http://localhost:3000/api/v1/user_plants/${this.state.plant.data.scientific_name}`, {
+     fetch(`https://theplantaeapi.herokuapp.com/api/v1/user_plants/${this.state.plant.data.scientific_name}`, {
        method: "DELETE",
        headers: {
          "Content-Type": "application/json",

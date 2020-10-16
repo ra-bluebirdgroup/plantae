@@ -8,7 +8,7 @@ class MyGarden extends React.Component {
 
  componentDidMount() {
    if (this.props.currentUser && this.props.currentUser.userplants.length > 0) {
-     fetch("http://localhost:3000/api/v1/userplants", {
+     fetch("https://theplantaeapi.herokuapp.com/api/v1/userplants", {
        method: "POST",
        headers: {
          "Content-Type": "application/json",
@@ -28,7 +28,7 @@ class MyGarden extends React.Component {
 
  componentDidUpdate(prevProps) {
     if (prevProps !== this.props) {
-      fetch("http://localhost:3000/api/v1/userplants", {
+      fetch("https://theplantaeapi.herokuapp.com/api/v1/userplants", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

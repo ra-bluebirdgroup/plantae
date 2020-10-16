@@ -11,9 +11,9 @@ class PlantsContainer extends React.Component {
   }
 
   getPlants = e => {
-    let API = 'http://localhost:3000/api/v1/plants'
+    let API = 'https://theplantaeapi.herokuapp.com/api/v1/plants'
     if (e || this.props.api) {
-      API = "http://localhost:3000/api/v1/flowers"
+      API = "https://theplantaeapi.herokuapp.com/api/v1/flowers"
     } else if (this.props.food_api) {
       API = this.props.food_api
     }
@@ -30,7 +30,7 @@ class PlantsContainer extends React.Component {
   .then(data => {
      if (data.errors) {
        alert(data.errors)
-    } else {
+    } else if (data.data){
 
       this.setState({
         plants: data.data.data,
@@ -57,9 +57,9 @@ componentDidUpdate(prevProps) {
 }
 
  handleClick = e => {
-   let API = 'http://localhost:3000/api/v1/plants'
+   let API = 'https://theplantaeapi.herokuapp.com/api/v1/plants'
    if (this.props.api) {
-     API = "http://localhost:3000/api/v1/flowers"
+     API = "https://theplantaeapi.herokuapp.com/api/v1/flowers"
    } else if (this.props.food_api) {
      API = this.props.food_api
    }

@@ -11,7 +11,7 @@ class PlantCard extends React.Component {
     console.log(this.props)
     if (!this.props.image_url) {
 
-      let API = 'http://localhost:3000/api/v1/getImage'
+      let API = 'https://theplantaeapi.herokuapp.com/api/v1/getImage'
       fetch(API, {
       method: "GET",
       headers: {

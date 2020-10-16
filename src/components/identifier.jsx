@@ -36,7 +36,7 @@ class Identifier extends React.Component {
    if (this.state.queryImage) {
       imagePath =  this.state.queryImage
    }
-     fetch("http://localhost:3000/api/v1/identifier", {
+     fetch("https://theplantaeapi.herokuapp.com/api/v1/identifier", {
        method: "POST",
        headers: {
          "Content-Type": "application/json",

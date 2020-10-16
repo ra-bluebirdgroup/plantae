@@ -18,7 +18,7 @@ class SignUp extends React.Component {
     e.preventDefault()
 
   if (this.state.password === this.state.passwordConfirmation && this.state.username){
-    fetch("http://localhost:3000/api/v1/users", {
+    fetch("https://theplantaeapi.herokuapp.com/api/v1/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
