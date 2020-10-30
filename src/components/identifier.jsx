@@ -1,4 +1,6 @@
 import React from "react";
+import Camera from 'react-html5-camera-photo';
+import 'react-html5-camera-photo/build/css/index.css';
 import PlantsContainer from "./plants_container";
 import TextLoop from "react-text-loop";
 import Wol from "./Wol.gif";
@@ -18,24 +20,71 @@ class Identifier extends React.Component {
     <span>I'll describe it for you!</span>,
     <span></span>
   ],
-  queryImage: null
+  queryImage: null,
+  camera: ""
  }
 
  componentDidMount() {
    if (this.props.queryImage) {
-     console.log("ok")
       this.setState({ imagePath: this.props.queryImage },()=> this.postIdentification())
    }
  }
 
- postIdentification = (e) => {
-   console.log("ok")
-   e && e.preventDefault()
-   let imagePath = this.state.imagePath
+ handleTakePhoto = (dataUri) => {
+   this.setState({
+     queryImage: dataUri,
+     camera: ""
+   })
+  this.postId()
+ }
 
+ takePhoto = () => {
    if (this.state.queryImage) {
-      imagePath =  this.state.queryImage
-   }
+    console.log(this.state)
+   } else {
+   return (
+     this.setState({
+   camera: <Camera
+     onTakePhoto = { (dataUri) => { this.handleTakePhoto(dataUri); } }
+   />
+ })
+ )
+}
+ }
+
+ postId = () => {
+   const data = {
+         api_key: process.env.REACT_APP_PLANTID,
+         images: this.state.queryImage,
+         modifiers: ["crops_fast", "similar_images"],
+         plant_language: "en",
+         plant_details: ["common_names",
+                           "url",
+                           "name_authority",
+                           "wiki_description",
+                           "taxonomy",
+                           "synonyms"]
+       }
+
+       fetch('https://api.plant.id/v2/identify', {
+         method: 'POST',
+         headers: {
+           'Content-Type': 'application/json',
+         },
+         body: JSON.stringify(data),
+       })
+       .then(response => response.json())
+       .then(data => {
+         console.log('Success:', data);
+       })
+       .catch((error) => {
+         console.error('Error:', error);
+       })
+ }
+
+ postIdentification = (e) => {
+   e && e.preventDefault()
+
      fetch("https://theplantaeapi.herokuapp.com/api/v1/identifier", {
        method: "POST",
        headers: {
@@ -43,7 +92,7 @@ class Identifier extends React.Component {
          "Accept": "application/json"
        },
        body: JSON.stringify({
-         imagePath: imagePath
+         imagePath: this.state.queryImage
        })
      })
      .then(res => res.json())
@@ -86,7 +135,7 @@ class Identifier extends React.Component {
     }
 
     if (this.state.plants.length > 0) {
-      // console.log(this.state)
+
       plants =
       <>
       <div className="card">
@@ -100,7 +149,6 @@ class Identifier extends React.Component {
                 backToWol={this.props.backToWol}
                 identifier={this.imagePath}
                 my_plants={this.state.plants[0]}/>
-
        </div>
        </>
   }
@@ -110,7 +158,6 @@ class Identifier extends React.Component {
     return(
       <>
       <div className="identifier-page">
-      {queryImage}
       <div className="talk-bubble tri-right border round btm-left-in">
       <div className="talktext">
       <h2>
@@ -128,21 +175,16 @@ class Identifier extends React.Component {
           />
        <div className="identifier-form">
          <h1>Ask Wol</h1>
+         {this.queryImage}
          <p>the plant identifiying owl</p>
-         <form onSubmit={this.postIdentification}>
+              {queryImage}
          <h3>link to image</h3>
            <p>enter image url or local path</p>
-           <input
-             name="image_url"
-             value={this.state.imagePath}
-             type="image_url"
-             onChange={this.updateImagePath}
-             placeholder="image url"
-           /><br/><br/>
-           <button className="identify-button" type="submit">
-             go
-           </button>
-          </form>
+           <input type="file" accept=".jpg"/>
+           <button onClick={this.takePhoto}>Take Photo</button>
+           <br/><br/>
+           {this.state.camera}
+
        </div>
        </div>
        <div>
@@ -157,6 +199,7 @@ class Identifier extends React.Component {
         <h1>Please Sign up, or Log in to start identifiying plants!</h1>
       </>
     )
+
   }
  }
 }

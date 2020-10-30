@@ -1,8 +1,6 @@
 import React from 'react'
 import PlantCard from "./plant_card";
 
-
-
 class PlantsContainer extends React.Component {
   state = {
     plants: [],

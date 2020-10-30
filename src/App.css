@@ -64,13 +64,13 @@
 }
 
 .queryImage {
-  position: absolute;
+  position: sticky;
   display: block;
-  margin-left: 1000px;
+  margin-left: auto;
   margin-right: auto;
-  width: 25%;
+  width: 63%;
   filter: saturate(200%);
-  border: 8px solid #523906;
+  border: 1px solid #523906;
 }
 
  .showPage_image {

@@ -18,6 +18,9 @@ const NavBar = (props) => {
         <Link className="Link" to="/food">
           Food
         </Link>
+        <Link className="Link" to="/identifier">
+          Ask Wol
+        </Link>
         <Link className="Link" to="/login">
           Log in
         </Link>
