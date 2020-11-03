@@ -14,14 +14,14 @@ class Identifier extends React.Component {
     <span>Welcome to Plantae!</span>,
     <span>My name is Wol</span>,
     <span>an old wise owl</span>,
-    <span>if you need advice</span>,
-    <span>identifiying a plant</span>,
+    <span>need advice identifiying a plant?</span>,
     <span>show me an image</span>,
-    <span>I'll describe it for you!</span>,
-    <span></span>
+    <span>and I will tell ya what I think!</span>,
+    <span>...</span>
   ],
   queryImage: null,
-  camera: ""
+  camera: "",
+  wol: true
  }
 
  componentDidMount() {
@@ -30,70 +30,24 @@ class Identifier extends React.Component {
    }
  }
 
- handleTakePhoto = (dataUri) => {
-   this.setState({
-     queryImage: dataUri,
-     camera: ""
-   })
-  this.postId()
- }
-
  takePhoto = () => {
-   if (this.state.queryImage) {
-    console.log(this.state)
-   } else {
-   return (
      this.setState({
-   camera: <Camera
-     onTakePhoto = { (dataUri) => { this.handleTakePhoto(dataUri); } }
-   />
- })
- )
-}
+     camera: <Camera
+     imageType = {"jpg"}
+     onTakePhoto = { (dataUri) => { this.postIdentification(dataUri) } }
+     />,
+     wol: false
+   })
  }
 
- postId = () => {
-   const data = {
-         api_key: process.env.REACT_APP_PLANTID,
-         images: this.state.queryImage,
-         modifiers: ["crops_fast", "similar_images"],
-         plant_language: "en",
-         plant_details: ["common_names",
-                           "url",
-                           "name_authority",
-                           "wiki_description",
-                           "taxonomy",
-                           "synonyms"]
-       }
-
-       fetch('https://api.plant.id/v2/identify', {
-         method: 'POST',
-         headers: {
-           'Content-Type': 'application/json',
-         },
-         body: JSON.stringify(data),
-       })
-       .then(response => response.json())
-       .then(data => {
-         console.log('Success:', data);
-       })
-       .catch((error) => {
-         console.error('Error:', error);
-       })
- }
-
- postIdentification = (e) => {
-   e && e.preventDefault()
-
+ postIdentification = (dataUri) => {
+   console.log(dataUri)
      fetch("https://theplantaeapi.herokuapp.com/api/v1/identifier", {
        method: "POST",
        headers: {
-         "Content-Type": "application/json",
-         "Accept": "application/json"
-       },
-       body: JSON.stringify({
-         imagePath: this.state.queryImage
-       })
+      'Content-Type': 'application/json'
+    },
+       body: JSON.stringify(dataUri)
      })
      .then(res => res.json())
      .then(data => {
@@ -102,15 +56,19 @@ class Identifier extends React.Component {
          this.setState({
            indentifierResponse: ["input cant be blank.", "give me a link", "or local path", "and try again!"],
            queryImage: this.state.imagePath,
-           imagePath: ""
+           imagePath: "",
+           camera: "",
+           wol: true
          })
       } else {
         console.log(data)
           this.setState({
-             plants: data.plants,
-            indentifierResponse: data.descriptions,
+             plants: data.suggestions,
+            indentifierResponse: data.suggestions.map(plant => plant.plant_details.common_names),
             queryImage: this.state.imagePath,
-            imagePath: ""
+            imagePath: "",
+            camera: "",
+            wol: true
           })
       }
     })
@@ -123,7 +81,6 @@ class Identifier extends React.Component {
   render(){
     let queryImage = ""
     let plants = ""
-    console.log(this.state)
 
     if (this.state.queryImage){
       let src = this.state.queryImage
@@ -134,7 +91,7 @@ class Identifier extends React.Component {
           />;
     }
 
-    if (this.state.plants.length > 0) {
+    if (this.state.plants && this.state.plants.length > 0) {
 
       plants =
       <>
@@ -144,17 +101,14 @@ class Identifier extends React.Component {
        <div className="cards">
                 <PlantsContainer
                 currentUser={this.props.currentUser}
-                {...this.props}
-                {...this.state}
                 backToWol={this.props.backToWol}
                 identifier={this.imagePath}
-                my_plants={this.state.plants[0]}/>
+                plants={this.state.plants}/>
        </div>
        </>
   }
 
-    if (this.props.currentUser) {
-
+if (this.state.wol) {
     return(
       <>
       <div className="identifier-page">
@@ -162,7 +116,7 @@ class Identifier extends React.Component {
       <div className="talktext">
       <h2>
                <TextLoop children={this.state.indentifierResponse}interval={1000} springConfig={{ stiffness: 150 }}>
-               </TextLoop>{" "}
+               </TextLoop>
            </h2>
       </div>
       </div><br/>
@@ -183,8 +137,6 @@ class Identifier extends React.Component {
            <input type="file" accept=".jpg"/>
            <button onClick={this.takePhoto}>Take Photo</button>
            <br/><br/>
-           {this.state.camera}
-
        </div>
        </div>
        <div>
@@ -193,14 +145,12 @@ class Identifier extends React.Component {
        </>
 
     )
-  } else {
-    return(
-      <>
-        <h1>Please Sign up, or Log in to start identifiying plants!</h1>
-      </>
+  } else  {
+    return (
+      this.state.camera
     )
-
-  }
+    }
  }
+
 }
 export default Identifier;

@@ -8,6 +8,24 @@ class PlantsContainer extends React.Component {
     searchTerm: ""
   }
 
+  componentDidMount() {
+    if (this.props.my_plants){
+      this.setState({plants: this.props.my_plants})
+    } else if (this.props.plants) {
+      this.setState({plants: this.props.plants})
+    } else{
+      this.getPlants()
+    }
+  }
+
+componentDidUpdate(prevProps) {
+  if (prevProps !== this.props && !this.props.my_plants){
+    this.getPlants()
+ } else if (prevProps !== this.props && this.props.my_plants) {
+    this.setState({plants: this.props.my_plants})
+ }
+}
+
   getPlants = e => {
     let API = 'https://theplantaeapi.herokuapp.com/api/v1/plants'
     if (e || this.props.api) {
@@ -38,21 +56,6 @@ class PlantsContainer extends React.Component {
     }
    })
   }
-  componentDidMount() {
-    if (this.props.my_plants){
-      this.setState({plants: this.props.my_plants})
-    } else {
-      this.getPlants()
-    }
-  }
-
-componentDidUpdate(prevProps) {
-  if (prevProps !== this.props && !this.props.my_plants){
-    this.getPlants()
- } else if (prevProps !== this.props && this.props.my_plants) {
-    this.setState({plants: this.props.my_plants})
- }
-}
 
  handleClick = e => {
    let API = 'https://theplantaeapi.herokuapp.com/api/v1/plants'
@@ -135,26 +138,39 @@ componentDidUpdate(prevProps) {
      /><button onClick={this.getPlants} name="searchButton" className="searchButton"><b>search</b></button>
      </div>
 
-    if (this.state.plants && this.state.plants.length > 0 ){
+    if (this.props.plants && this.state.plants.length > 0 ){
       return(
     <>
-    {searchBar}
+
     <div className="cards">
         {backButton}
          {
-           this.state.plants.map(plant => <PlantCard key={plant.id} {...plant} {...this.props}/>)
+           this.state.plants.map(plant => <PlantCard key={plant.id} plant={plant} {...this.props}/>)
        }
        {forwardButton}
     </div>
     </>
       )
-    } else {
+    } else if (this.state.plants && this.state.plants.length > 0) {
    return(
-    <>
-     <p>⌛...</p>
-    </>
+     <>
+     {searchBar}
+     <div className="cards">
+         {backButton}
+          {
+            this.state.plants.map(plant => <PlantCard key={plant.id} {...plant} {...this.props}/>)
+        }
+        {forwardButton}
+     </div>
+     </>
    )
- }
+ } else {
+  return (
+     <>
+      <p>loading...</p>
+     </>
+   )
+  }
  }
 }
 export default PlantsContainer
