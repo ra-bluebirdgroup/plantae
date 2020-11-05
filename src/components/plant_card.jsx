@@ -3,7 +3,7 @@ import TextLoop from "react-text-loop";
 
 class PlantCard extends React.Component {
   state = {
-    plantid: null,
+    plantid: false,
     plant: this.props,
     scientificName: "",
     image_url: ""
@@ -15,7 +15,8 @@ class PlantCard extends React.Component {
     if(this.props.plant) {
 
       this.setState({
-        plantid: this.props.plant,
+        plantid: true,
+        plant: this.props.plant,
         image_url: this.props.plant.similar_images[0].url
       })
 
@@ -66,7 +67,7 @@ class PlantCard extends React.Component {
 
 handleClick = (e) => {
   console.log(this.props)
-    this.props.setCurrentPlantId(this.props)
+    this.props.setCurrentPlantId(this.state.plant)
 }
 
   render(){
@@ -75,11 +76,11 @@ handleClick = (e) => {
         <div onClick={this.handleClick} onMouseEnter={this.setScientificName} onMouseLeave={this.resetScientificName} className="card">
         <img
               src={this.state.image_url}
-              alt={this.state.scientific_name}
+              alt={this.state.plant.plant_details.common_names}
               className="card_image"
             />
            <TextLoop className="common_name" children={this.props.plant.plant_details.common_names}interval={1000} springConfig={{ stiffness: 150 }}>
-           </TextLoop>{" "}
+           </TextLoop>
         </div>
         )
 

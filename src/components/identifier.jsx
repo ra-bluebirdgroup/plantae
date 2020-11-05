@@ -100,8 +100,7 @@ class Identifier extends React.Component {
        </div>
        <div className="cards">
                 <PlantsContainer
-                currentUser={this.props.currentUser}
-                backToWol={this.props.backToWol}
+                {...this.props}
                 identifier={this.imagePath}
                 plants={this.state.plants}/>
        </div>

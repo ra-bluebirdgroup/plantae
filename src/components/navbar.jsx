@@ -16,7 +16,7 @@ const NavBar = (props) => {
           Plants
         </Link>
         <Link className="Link" to="/food">
-          Food
+          Edible
         </Link>
         <Link className="Link" to="/identifier">
           Ask Wol

@@ -6,10 +6,38 @@ class PlantShowPage extends React.Component {
     image_url: ""
   }
 
-  setImage = () => {
-    console.log(this.props)
-    if (!this.state.plant.data.image_url) {
+  componentDidMount(){
+    if (this.props.currentPlant &&  this.props.currentPlant.plant_details) {
+      this.setState({
+        plant: this.props.plant
+      })
+    } else {
+    let API = `https://theplantaeapi.herokuapp.com/api/v1/plants/${this.props.currentPlant.id}`
+    fetch(API)
+   .then(res => res.json())
+   .then(data => {
+     if (data.errors) {
+       alert(data.errors)
+    } else {
+      this.setState({
+        plant: data.data
+      },()=> this.setImage())
+     }
+    })
+   }
+  }
 
+  setImage = () => {
+
+    if (this.state.plant.data.image_url) {
+      this.setState({
+        image_url: this.state.plant.data.image_url
+      })
+    } else if (this.props.plant_details) {
+     this.setState({
+       image_url: this.state.plant.similar_images
+      })
+     } else {
       let API = 'https://theplantaeapi.herokuapp.com/api/v1/getImage'
       fetch(API, {
       method: "GET",
@@ -17,6 +45,7 @@ class PlantShowPage extends React.Component {
         "Content-Type": "application/json",
         "Accept": "application/json",
         scientificName: this.state.plant.data.scientific_name
+
       }
     })
     .then(res => res.json())
@@ -29,29 +58,10 @@ class PlantShowPage extends React.Component {
         })
       }
      })
-  } else {
-   this.setState({
-     image_url: this.state.plant.data.image_url
-   })
-  }
+   }
 
   }
 
-  componentDidMount(){
-    console.log(this.props)
-    let API = `https://theplantaeapi.herokuapp.com/api/v1/plants/${this.props.currentPlant.id}`
-    fetch(API)
-   .then(res => res.json())
-   .then(data => {
-     if (data.errors) {
-       alert(data.errors)
-    } else {
-      this.setState({
-        plant: data.data
-      },()=> this.setImage())
-    }
-   })
-  }
 
   addOrRemovePlant = (event) => {
     event.persist()
@@ -116,6 +126,16 @@ handleBackButtonClick = (e) => {
 }
 
   render(){
+
+    if (this.props.currentPlant && this.props.currentPlant.plant_details) {
+      return (
+        <>
+         <p>ok</p>
+        </>
+       )
+
+    } else if (this.state.plant) {
+
     if(this.state.plant.data){
      let my_garden = []
      let addOrRemove = "add to garden!"
@@ -152,6 +172,7 @@ handleBackButtonClick = (e) => {
       vegetable,
       year
     } = this.state.plant.data
+
     return(
       <div onClick={this.handleClick} onMouseEnter={this.setScientificName} onMouseLeave={this.resetScientificName} className="card">
     <div className="plantData">
@@ -175,7 +196,7 @@ handleBackButtonClick = (e) => {
      <p>year of publication{year}</p>
      <p>Author: {author}</p>
      <p>bibliography: {bibliography}</p>
-</div>
+    </div>
      <button className="showPageButton" onClick={this.handleBackButtonClick}> back ↩ </button>
       {addOrRemoveButton}
     </div>
@@ -188,7 +209,7 @@ handleBackButtonClick = (e) => {
     )
    }
   }
-
+ }
 }
 
 export default PlantShowPage;
