@@ -62,6 +62,7 @@ class PlantShowPage extends React.Component {
 
   }
 
+
   addOrRemovePlant = (event) => {
     event.persist()
   console.log(this.props)
@@ -125,24 +126,31 @@ handleBackButtonClick = (e) => {
 }
 
   render(){
-     let my_garden = []
-     let addOrRemove = "add to garden!"
-     let addOrRemoveButton = ""
 
-     if (this.props.currentUser && this.props.currentUser.userplants.length > 0){
-        my_garden = this.props.currentUser.userplants.map(plant => plant.scientific_name)
-        my_garden.includes(this.state.plant.data.scientific_name) ? addOrRemove = "remove from garden!" :  addOrRemove = "add to garden!"
-        addOrRemoveButton = <button className="showPageButton" onClick={this.addOrRemovePlant} name="cardDetails" value={addOrRemove}>{addOrRemove}</button>
-     }
-
-    if (this.props.currentPlant && this.props.currentPlant.plant_details) {
-return (
+    if (this.props.plant && this.props.plant.plant_details) {
+      console.log(this.plant)
+      return (
         <>
-         <p>ok</p>
+         <p>"ok"</p>
         </>
        )
 
     } else if (this.state.plant) {
+
+    if(this.state.plant.data){
+     let my_garden = []
+     let addOrRemove = "add to garden!"
+     let addOrRemoveButton = ""
+   console.log(this.props)
+     if (this.props.currentUser && this.props.currentUser.userplants.length > 0){
+
+  my_garden = this.props.currentUser.userplants.map(plant => plant.scientific_name)
+   my_garden.includes(this.state.plant.data.scientific_name) ? addOrRemove = "remove from garden!" :  addOrRemove = "add to garden!"
+}
+
+       if (this.props.currentUser){
+        addOrRemoveButton = <button className="showPageButton" onClick={this.addOrRemovePlant} name="cardDetails" value={addOrRemove}>{addOrRemove}</button>
+       }
 
       let {
       author,
@@ -195,15 +203,14 @@ return (
     </div>
     )
   } else {
-
     return(
       <>
         <p>Loading...</p>
       </>
     )
-
    }
   }
+ }
 }
 
 export default PlantShowPage;
