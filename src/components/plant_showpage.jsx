@@ -127,80 +127,78 @@ handleBackButtonClick = (e) => {
 
   render(){
 
-    if (this.props.plant && this.props.plant.plant_details) {
-      console.log(this.plant)
+    if (this.state.plant.plant_details) {
       return (
         <>
          <p>"ok"</p>
         </>
        )
 
-    } else if (this.state.plant) {
+    } else if (this.state.plant.data) {
 
-    if(this.state.plant.data){
-     let my_garden = []
-     let addOrRemove = "add to garden!"
-     let addOrRemoveButton = ""
-   console.log(this.props)
-     if (this.props.currentUser && this.props.currentUser.userplants.length > 0){
+          let my_garden = []
+          let addOrRemove = "add to garden!"
+          let addOrRemoveButton = ""
 
-  my_garden = this.props.currentUser.userplants.map(plant => plant.scientific_name)
-   my_garden.includes(this.state.plant.data.scientific_name) ? addOrRemove = "remove from garden!" :  addOrRemove = "add to garden!"
-}
 
-       if (this.props.currentUser){
-        addOrRemoveButton = <button className="showPageButton" onClick={this.addOrRemovePlant} name="cardDetails" value={addOrRemove}>{addOrRemove}</button>
-       }
+            if (this.props.currentUser && this.props.currentUser.userplants.length > 0){
+              my_garden = this.props.currentUser.userplants.map(plant => plant.scientific_name)
+              my_garden.includes(this.state.plant.data.scientific_name) ? addOrRemove = "remove from garden!" :  addOrRemove = "add to garden!"
+            }
 
-      let {
-      author,
-      bibliography,
-      common_name,
-      family,
-      family_common_name,
-      genus,
-      genus_id,
-      image_url,
-      main_species,
-      observations,
-      scientific_name,
-      slug,
-      sources,
-      species,
-      subspecies,
-      subvarieties,
-      varieties,
-      vegetable,
-      year
-    } = this.state.plant.data
+           if (this.props.currentUser){
+            addOrRemoveButton = <button className="showPageButton" onClick={this.addOrRemovePlant} name="cardDetails" value={addOrRemove}>{addOrRemove}</button>
+           }
+
+          let {
+          author,
+          bibliography,
+          common_name,
+          family,
+          family_common_name,
+          genus,
+          genus_id,
+          image_url,
+          main_species,
+          observations,
+          scientific_name,
+          slug,
+          sources,
+          species,
+          subspecies,
+          subvarieties,
+          varieties,
+          vegetable,
+          year
+        } = this.state.plant.data
 
     return(
       <div onClick={this.handleClick} onMouseEnter={this.setScientificName} onMouseLeave={this.resetScientificName} className="card">
-    <div className="plantData">
-    <img
-          src={this.state.image_url}
-          alt={this.props.scientific_name}
-          className="showPage_image"
-        />
-     <p>Common Name: {common_name}</p>
-     <p>Scientific Name: {scientific_name}</p>
-     <p>Slug: {slug}</p>
-     <p>Family Name: {family.name}</p>
-     <p>Family Common Name: {family_common_name}</p>
-     <p>Genus: {genus.name}</p>
-     <p>Species: {main_species.common_name ? main_species.common_name : "FerraFatta"}</p>
-     <p>Observations: {observations}</p>
-     <p>Sources:</p>
-     <div>{sources.map((source, index) => <a ckey={index} href={source.url}><p>{source.url}</p></a>)}</div>
-     <div><p>varieties:</p> {varieties.map((varieties, index) => <p key={index} >{varieties.common_name}</p>)}</div>
-     <p>is vegetable:{vegetable}</p>
-     <p>year of publication{year}</p>
-     <p>Author: {author}</p>
-     <p>bibliography: {bibliography}</p>
-    </div>
-     <button className="showPageButton" onClick={this.handleBackButtonClick}> back ↩ </button>
+      <div className="plantData">
+      <img
+        src={this.state.image_url}
+        alt={this.props.scientific_name}
+        className="showPage_image"
+      />
+      <p>Common Name: {common_name}</p>
+      <p>Scientific Name: {scientific_name}</p>
+      <p>Slug: {slug}</p>
+      <p>Family Name: {family.name}</p>
+      <p>Family Common Name: {family_common_name}</p>
+      <p>Genus: {genus.name}</p>
+      <p>Species: {main_species.common_name ? main_species.common_name : "FerraFatta"}</p>
+      <p>Observations: {observations}</p>
+      <p>Sources:</p>
+      <div>{sources.map((source, index) => <a ckey={index} href={source.url}><p>{source.url}</p></a>)}</div>
+      <div><p>varieties:</p> {varieties.map((varieties, index) => <p key={index} >{varieties.common_name}</p>)}</div>
+      <p>is vegetable:{vegetable}</p>
+      <p>year of publication{year}</p>
+      <p>Author: {author}</p>
+      <p>bibliography: {bibliography}</p>
+      </div>
+      <button className="showPageButton" onClick={this.handleBackButtonClick}> back ↩ </button>
       {addOrRemoveButton}
-    </div>
+      </div>
     )
   } else {
     return(
@@ -210,7 +208,7 @@ handleBackButtonClick = (e) => {
     )
    }
   }
- }
+
 }
 
 export default PlantShowPage;
