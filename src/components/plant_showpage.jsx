@@ -9,7 +9,7 @@ class PlantShowPage extends React.Component {
   componentDidMount(){
     if (this.props.currentPlant &&  this.props.currentPlant.plant_details) {
       this.setState({
-        plant: this.props.plant
+        plant: this.props.currentPlant
       })
     } else {
     let API = `https://theplantaeapi.herokuapp.com/api/v1/plants/${this.props.currentPlant.id}`
