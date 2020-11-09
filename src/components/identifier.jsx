@@ -63,7 +63,7 @@ class Identifier extends React.Component {
       } else {
         console.log(data)
           this.setState({
-             plants: data.suggestions,
+            plants: data.suggestions,
             indentifierResponse: data.suggestions.map(plant => plant.plant_details.common_names),
             queryImage: this.state.imagePath,
             imagePath: "",

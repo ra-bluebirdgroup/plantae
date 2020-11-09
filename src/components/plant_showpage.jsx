@@ -1,4 +1,5 @@
 import React from "react";
+import TextLoop from "react-text-loop";
 
 class PlantShowPage extends React.Component {
   state = {
@@ -45,7 +46,6 @@ class PlantShowPage extends React.Component {
         "Content-Type": "application/json",
         "Accept": "application/json",
         scientificName: this.state.plant.data.scientific_name
-
       }
     })
     .then(res => res.json())
@@ -128,10 +128,46 @@ handleBackButtonClick = (e) => {
   render(){
 
     if (this.state.plant.plant_details) {
+
+      let {
+      id,
+      confirmed,
+      plant_details,
+      plant_name,
+      probability,
+      similar_images
+      } = this.state.plant
+
+      let images = similar_images.map((i) => <img key={Math.random()} src={i.url} className="showPage_image"/>)
+
       return (
-        <>
-         <p>"ok"</p>
-        </>
+        <div onClick={this.handleClick} onMouseEnter={this.setScientificName} onMouseLeave={this.resetScientificName} className="card">
+        <div className="plantData">
+         <h1><TextLoop children={plant_details.common_names}interval={1000} springConfig={{ stiffness: 150 }}></TextLoop></h1>
+               {images}
+         <p>{confirmed ? "Confirmed: True" : "Confirmed: False"}</p>
+         <p>probability: {probability}</p>
+         <p>name authority: {plant_details.name_authority}</p>
+         <p>scientific name: {plant_details.scientific_name}</p>
+         <p>genus: {plant_details.structured_name.genus}</p>
+         <p>species: {plant_details.structured_name.species}</p>
+         <p>synonyms: <TextLoop children={plant_details.synonyms}interval={1000} springConfig={{ stiffness: 150 }}></TextLoop></p>
+
+        <h2>Description:</h2>
+        <p>{plant_details.wiki_description.value}</p>
+
+        <h2>taxonomy: </h2>
+        <p>kingdom: {plant_details.taxonomy.kingdom}</p>
+        <p>phylum: {plant_details.taxonomy.phylum}</p>
+        <p>class: {plant_details.taxonomy.class}</p>
+        <p>order: {plant_details.taxonomy.order}</p>
+        <p>family: {plant_details.taxonomy.family}</p>
+
+        <h3>citation:</h3>
+        <p><a href={plant_details.wiki_description.citation}>{plant_details.wiki_description.citation}</a></p>
+        <p>license: <a href={plant_details.wiki_description.license_url}>{plant_details.wiki_description.license_name}</a></p>
+        </div>
+        </div>
        )
 
     } else if (this.state.plant.data) {
