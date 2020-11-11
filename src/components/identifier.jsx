@@ -2,6 +2,7 @@ import React from "react";
 import Axios from 'axios';
 import Camera from 'react-html5-camera-photo';
 import CameraIos, { DEVICE, FACING_MODE, PLACEMENT } from 'react-camera-ios';
+import {isMobile} from 'react-device-detect';
 import 'react-html5-camera-photo/build/css/index.css';
 import PlantsContainer from "./plants_container";
 import TextLoop from "react-text-loop";
@@ -33,24 +34,42 @@ class Identifier extends React.Component {
  }
 
  takePhoto = () => {
-   const containerStyle = { display: 'flex', height: '300px', width: '300px' };
-
-  this.setState({
-     camera:
-      <div style={containerStyle}>
-           <Camera
-        device={DEVICE.MOBILE}
-        facingMode={FACING_MODE.ENVIRONMENT}
-        placement={PLACEMENT.COVER}
-        quality="1"
-        onError={error => console.log(error)}
-        onTakePhoto = { (dataUri) => {
-          this.setState({ queryImage: dataUri},()=> this.postIdentification())
-        } }
-         />
-       </div>,
-        wol: false
+   console.log(isMobile)
+  if (isMobile) {
+  const containerStyle = { display: 'flex', height: '300px', width: '300px' };
+   this.setState({
+     camera: <div style={containerStyle}>
+    <CameraIos
+      device={DEVICE.MOBILE}
+      facingMode={FACING_MODE.ENVIRONMENT}
+      placement={PLACEMENT.COVER}
+      quality="1"
+      onError={error => console.log(error)}
+      onTakePhoto = { (dataUri) => {
+        this.setState({
+          queryImage: dataUri,
+        },()=> this.postIdentification())
+      } }
+    />
+  </div>,
+   wol: false
    })
+
+  } else {
+     this.setState({
+     wol: false,
+     camera:
+     <Camera
+     imageType = {"jpg"}
+     onTakePhoto = { (dataUri) => {
+       this.setState({
+         queryImage: dataUri
+       },()=> this.postIdentification())
+     } }
+     />,
+   })
+
+  }
  }
 
  postIdentification = () => {

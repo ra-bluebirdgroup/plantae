@@ -9,6 +9,7 @@
     "axios": "^0.21.0",
     "react": "^16.13.1",
     "react-camera-ios": "^0.1.1",
+    "react-device-detect": "^1.14.0",
     "react-dom": "^16.13.1",
     "react-html5-camera-photo": "^1.5.4",
     "react-router-dom": "^5.2.0",
