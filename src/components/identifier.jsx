@@ -1,4 +1,5 @@
 import React from "react";
+import Axios from 'axios';
 import Camera from 'react-html5-camera-photo';
 import 'react-html5-camera-photo/build/css/index.css';
 import PlantsContainer from "./plants_container";
@@ -34,20 +35,22 @@ class Identifier extends React.Component {
      this.setState({
      camera: <Camera
      imageType = {"jpg"}
-     onTakePhoto = { (dataUri) => { this.postIdentification(dataUri) } }
+     onTakePhoto = { (dataUri) => {
+       this.setState({ queryImage: dataUri})
+     } }
      />,
      wol: false
    })
  }
 
- postIdentification = (dataUri) => {
-   console.log(dataUri)
+ postIdentification = () => {
+
      fetch("https://theplantaeapi.herokuapp.com/api/v1/identifier", {
        method: "POST",
        headers: {
       'Content-Type': 'application/json'
     },
-       body: JSON.stringify(dataUri)
+       body: JSON.stringify(this.state.queryImage)
      })
      .then(res => res.json())
      .then(data => {
@@ -55,7 +58,6 @@ class Identifier extends React.Component {
        if (data.error) {
          this.setState({
            indentifierResponse: ["input cant be blank.", "give me a link", "or local path", "and try again!"],
-           queryImage: this.state.imagePath,
            imagePath: "",
            camera: "",
            wol: true
@@ -65,7 +67,6 @@ class Identifier extends React.Component {
           this.setState({
             plants: data.suggestions,
             indentifierResponse: data.suggestions.map(plant => plant.plant_details.common_names),
-            queryImage: this.state.imagePath,
             imagePath: "",
             camera: "",
             wol: true
@@ -75,10 +76,19 @@ class Identifier extends React.Component {
  }
 
  updateImagePath = e => {
-  this.setState({ imagePath: e.target.value})
+  let reader = new FileReader()
+  reader.readAsDataURL(e.target.files[0])
+
+  reader.onload = () => {
+      this.setState({
+        queryImage: reader.result
+      },()=> this.postIdentification())
+    }
+  console.log(this.state.queryImage)
  }
 
   render(){
+    console.log(this.state)
     let queryImage = ""
     let plants = ""
 
@@ -132,8 +142,8 @@ if (this.state.wol) {
          <p>the plant identifiying owl</p>
               {queryImage}
          <h3>link to image</h3>
-           <p>enter image url or local path</p>
-           <input type="file" accept=".jpg"/>
+           <p>enter image url or choose a file</p>
+           <input type="file" accept=".jpg" onChange={(e) => this.updateImagePath(e)} />
            <button onClick={this.takePhoto}>Take Photo</button>
            <br/><br/>
        </div>
