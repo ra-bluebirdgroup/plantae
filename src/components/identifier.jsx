@@ -33,10 +33,15 @@ class Identifier extends React.Component {
    }
  }
 
- takePhoto = () => {
-   console.log(isMobile)
+ takePhoto = (dataUri) => {
+   this.setState({
+     queryImage: dataUri,
+   },()=> this.postIdentification())
+ }
+
+ openCamera = () => {
   if (isMobile) {
-  const containerStyle = { display: 'flex', height: '300px', width: '300px' };
+  const containerStyle = { display: 'flex', height: '300px', width: this.window.width };
    this.setState({
      camera: <div style={containerStyle}>
     <CameraIos
@@ -45,11 +50,7 @@ class Identifier extends React.Component {
       placement={PLACEMENT.COVER}
       quality="1"
       onError={error => console.log(error)}
-      onTakePhoto = { (dataUri) => {
-        this.setState({
-          queryImage: dataUri,
-        },()=> this.postIdentification())
-      } }
+      onTakePhoto={dataUri => this.takePhoto(dataUri)}
     />
   </div>,
    wol: false
@@ -61,11 +62,7 @@ class Identifier extends React.Component {
      camera:
      <Camera
      imageType = {"jpg"}
-     onTakePhoto = { (dataUri) => {
-       this.setState({
-         queryImage: dataUri
-       },()=> this.postIdentification())
-     } }
+     onTakePhoto = { (dataUri) => { this.takePhoto(dataUri) } }
      />,
    })
 
@@ -173,7 +170,7 @@ if (this.state.wol) {
          <h3>link to image</h3>
            <p>enter image url or choose a file</p>
            <input type="file" accept=".jpg" onChange={(e) => this.updateImagePath(e)} />
-           <button onClick={this.takePhoto}>Take Photo</button>
+           <button onClick={this.openCamera}>Take Photo</button>
            <br/><br/>
        </div>
        </div>
