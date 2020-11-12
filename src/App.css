@@ -314,6 +314,14 @@ input[type=text], input[type=password], input[type=username]{
   -webkit-margin-after: 0em;
 }
 
+.iosCamera {
+ display: 'flex';
+ justify-content: center;
+ align-items: center;
+ height: '567px';
+ width: '375px';
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

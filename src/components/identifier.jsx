@@ -18,7 +18,7 @@ class Identifier extends React.Component {
     <span>My name is Wol</span>,
     <span>an old wise owl</span>,
     <span>need advice identifiying a plant?</span>,
-    <span>show me an image</span>,
+    <span>show me an image of a plant or mushroom</span>,
     <span>and I will tell ya what I think!</span>,
     <span>...</span>
   ],
@@ -40,17 +40,18 @@ class Identifier extends React.Component {
  }
 
  openCamera = () => {
+   console.log(isMobile)
   if (isMobile) {
-  const containerStyle = { display: 'flex', height: '300px', width: this.window.width };
+
    this.setState({
-     camera: <div style={containerStyle}>
+     camera: <div className="iosCamera">
     <CameraIos
       device={DEVICE.MOBILE}
       facingMode={FACING_MODE.ENVIRONMENT}
       placement={PLACEMENT.COVER}
       quality="1"
       onError={error => console.log(error)}
-      onTakePhoto={dataUri => this.takePhoto(dataUri)}
+      onTakePhoto={dataUri => { this.takePhoto(dataUri) }}
     />
   </div>,
    wol: false
@@ -62,7 +63,7 @@ class Identifier extends React.Component {
      camera:
      <Camera
      imageType = {"jpg"}
-     onTakePhoto = { (dataUri) => { this.takePhoto(dataUri) } }
+     onTakePhoto = {(dataUri) => { this.takePhoto(dataUri) }}
      />,
    })
 
