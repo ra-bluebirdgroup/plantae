@@ -71,6 +71,10 @@ class Identifier extends React.Component {
  }
 
  postIdentification = () => {
+   this.setState({
+    camera: "",
+    wol: true
+  })
 
      fetch("https://theplantaeapi.herokuapp.com/api/v1/identifier", {
        method: "POST",
@@ -84,19 +88,13 @@ class Identifier extends React.Component {
        console.log(data)
        if (data.error) {
          this.setState({
-           indentifierResponse: ["input cant be blank.", "give me a link", "or local path", "and try again!"],
-           imagePath: "",
-           camera: "",
-           wol: true
+           indentifierResponse: ["input cant be blank.", "give me a link", "or local path", "and try again!"]
          })
       } else {
         console.log(data)
           this.setState({
             plants: data.suggestions,
-            indentifierResponse: data.suggestions.map(plant => plant.plant_details.common_names),
-            imagePath: "",
-            camera: "",
-            wol: true
+            indentifierResponse: data.suggestions.map(plant => plant.plant_details.common_names)
           })
       }
     })
