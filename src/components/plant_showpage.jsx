@@ -10,7 +10,8 @@ class PlantShowPage extends React.Component {
   componentDidMount(){
     if (this.props.currentPlant &&  this.props.currentPlant.plant_details) {
       this.setState({
-        plant: this.props.currentPlant
+        plant: this.props.currentPlant,
+        scientific_name: this.props.currentPlant.plant_details.scientific_name
       })
     } else {
     let API = `https://theplantaeapi.herokuapp.com/api/v1/plants/${this.props.currentPlant.id}`
@@ -21,7 +22,8 @@ class PlantShowPage extends React.Component {
        alert(data.errors)
     } else {
       this.setState({
-        plant: data.data
+        plant: data.data,
+        scientific_name: data.data.data.scientifiic_name
       },()=> this.setImage())
      }
     })
@@ -77,7 +79,7 @@ class PlantShowPage extends React.Component {
       },
       body: JSON.stringify({
         username: this.props.currentUser.user.username,
-        plantid: this.state.plant.data.scientific_name
+        plantid: this.state.scientific_name
       })
     })
     .then(res => res.json())
@@ -126,6 +128,29 @@ handleBackButtonClick = (e) => {
 }
 
   render(){
+              let my_garden = []
+              let addOrRemove = "add to garden!"
+              let addOrRemoveButton = ""
+
+console.log(this.props.currentUser.userplants)
+                if (this.props.currentUser.userplants && this.props.currentUser.userplants.length > 0){
+                  my_garden = this.props.currentUser.userplants.map(plant => plant.scientific_name)
+
+
+                  if (this.state.plant.data && this.state.plant.data) {
+                   addOrRemove = "remove from garden!"
+                 } else {
+                   addOrRemove = "add to garden!"
+                 }
+                }
+
+               if (this.props.currentUser){
+                addOrRemoveButton = <button className="showPageButton" onClick={this.addOrRemovePlant} name="cardDetails" value={addOrRemove}>{addOrRemove}</button>
+               }
+
+    if (this.props.currentUser){
+     addOrRemoveButton = <button className="showPageButton" onClick={this.addOrRemovePlant} name="cardDetails" value={addOrRemove}>{addOrRemove}</button>
+    }
 
     if (this.state.plant.plant_details) {
 
@@ -151,7 +176,7 @@ handleBackButtonClick = (e) => {
          <p>scientific name: {plant_details.scientific_name}</p>
          <p>genus: {plant_details.structured_name.genus}</p>
          <p>species: {plant_details.structured_name.species}</p>
-         <p>synonyms: <TextLoop children={plant_details.synonyms}interval={1000} springConfig={{ stiffness: 150 }}></TextLoop></p>
+         <p>synonyms: </p> <TextLoop children={plant_details.synonyms}interval={1000} springConfig={{ stiffness: 150 }}></TextLoop>
 
         <h2>Description:</h2>
         <p>{plant_details.wiki_description.value}</p>
@@ -167,24 +192,12 @@ handleBackButtonClick = (e) => {
         <p><a href={plant_details.wiki_description.citation}>{plant_details.wiki_description.citation}</a></p>
         <p>license: <a href={plant_details.wiki_description.license_url}>{plant_details.wiki_description.license_name}</a></p>
         </div>
+        <button className="showPageButton" onClick={this.handleBackButtonClick}> back ↩ </button>
+        {addOrRemoveButton}
         </div>
        )
 
     } else if (this.state.plant.data) {
-
-          let my_garden = []
-          let addOrRemove = "add to garden!"
-          let addOrRemoveButton = ""
-
-
-            if (this.props.currentUser && this.props.currentUser.userplants.length > 0){
-              my_garden = this.props.currentUser.userplants.map(plant => plant.scientific_name)
-              my_garden.includes(this.state.plant.data.scientific_name) ? addOrRemove = "remove from garden!" :  addOrRemove = "add to garden!"
-            }
-
-           if (this.props.currentUser){
-            addOrRemoveButton = <button className="showPageButton" onClick={this.addOrRemovePlant} name="cardDetails" value={addOrRemove}>{addOrRemove}</button>
-           }
 
           let {
           author,

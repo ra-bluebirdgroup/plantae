@@ -5,7 +5,6 @@ class PlantCard extends React.Component {
   state = {
     plantid: false,
     plant: this.props,
-    scientificName: "",
     image_url: ""
   }
 
@@ -53,18 +52,6 @@ class PlantCard extends React.Component {
    })
   }
 
- setScientificName = () => {
-   this.setState({
-      ScientificName: this.props.common_name
-   })
- }
-
- resetScientificName  = () => {
-   this.setState({
-      ScientificName: ""
-   })
- }
-
 handleClick = (e) => {
   console.log(this.props)
     this.props.setCurrentPlantId(this.state.plant)
@@ -87,13 +74,13 @@ handleClick = (e) => {
     } else {
 
     return(
-      <div onClick={this.handleClick} onMouseEnter={this.setScientificName} onMouseLeave={this.resetScientificName} className="card">
+      <div onClick={this.handleClick} className="card">
       <img
             src={this.state.image_url}
             alt={this.props.scientific_name}
             className="card_image"
           />
-         <p className="common_name">{this.state.ScientificName}</p>
+         <p className="common_name">{this.props.common_name}</p>
     </div>
     )
   }

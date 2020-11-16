@@ -5,9 +5,9 @@ import logo from "./PlantaeLogo.png";
 const NavBar = (props) => {
   return (
     <>
-        <a href="/">
-          <img className="logo" src={logo} alt="Plantae logo" />
-        </a>
+      <a href="/">
+        <img className="logo" src={logo} alt="Plantae logo" />
+      </a>
       <div className="NavBar">
         <Link className="Link" to="/flowers">
           Flowers
@@ -31,6 +31,11 @@ const NavBar = (props) => {
           Info
         </Link>
       </div>
+       <input
+         type="text"
+         className="searchinput"
+       />
+       <button name="searchButton" className="searchButton"><b>search</b></button>
     </>
   )
 }

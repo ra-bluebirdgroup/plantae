@@ -1,7 +1,4 @@
 import React from "react";
-// import CoinContainer from "./Components/CoinContComp/CoinContainer";
-// import ExchContainer from "./Components/ExchContComp/ExchContainer";
-// import MyCoins from "./Components/MyCoins";
 import { Route, Switch } from "react-router-dom";
 import NavBar from "./components/navbar";
 import PlantsContainer from "./components/plants_container";
@@ -17,6 +14,7 @@ import MyGarden from "./components/my_garden";
 class App extends React.Component {
  state = {
    currentUser: null,
+   plants: "",
    currentPlant: 0,
    currentPage: 1,
    imagePath: null,
@@ -64,8 +62,8 @@ class App extends React.Component {
  } else {
    this.setState({
      currentUser: user
-  },()=> this.props.history.push('/'))
-  }
+    },()=> this.props.history.push('/'))
+   }
 
  }
 
@@ -79,6 +77,38 @@ class App extends React.Component {
   this.setState({
     currentPage: pageNumer
   },()=> this.props.history.push(`/plants/page=${pageNumer}`))
+ }
+
+ getPlants = e => {
+   let API = 'https://theplantaeapi.herokuapp.com/api/v1/plants'
+   if (e || this.props.api) {
+     API = "https://theplantaeapi.herokuapp.com/api/v1/flowers"
+   } else if (this.props.food_api) {
+     API = this.props.food_api
+   }
+   fetch(API, {
+   method: "GET",
+   headers: {
+     "Content-Type": "application/json",
+     "Accept": "application/json",
+     currentPage: this.props.currentPage,
+     searchTerm: this.state.searchTerm
+   }
+ })
+
+ .then(res => res.json())
+ .then(data => {
+    if (data.errors) {
+      alert(data.errors)
+   } else if (data.data){
+
+     this.setState({
+       plants: data.data.data,
+       currentPage: Number(data.currentPage),
+       searchTerm: ""
+     })
+   }
+  })
  }
 
  backToWol = (e, queryImage) => {

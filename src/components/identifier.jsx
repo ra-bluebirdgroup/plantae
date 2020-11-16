@@ -10,7 +10,6 @@ import Wol from "./Wol.gif";
 
 class Identifier extends React.Component {
  state = {
-   imagePath: "",
    plants: [],
    indentifierResponse: [
      <span>Greetings {this.props.currentUser && this.props.currentUser.user.username}...</span>,
@@ -29,7 +28,7 @@ class Identifier extends React.Component {
 
  componentDidMount() {
    if (this.props.queryImage) {
-      this.setState({ imagePath: this.props.queryImage },()=> this.postIdentification())
+      this.setState({ queryImage: this.props.queryImage },()=> this.postIdentification())
    }
  }
 
@@ -130,13 +129,13 @@ class Identifier extends React.Component {
 
       plants =
       <>
-      <div className="card">
-       <h1>Here are Wol's top picks form the Plantae Kingdom:</h1>
+      <div className="idcards">
+       <h1>Here are Wol's top picks form the Plantae Kingdom: </h1>
        </div>
        <div className="cards">
                 <PlantsContainer
                 {...this.props}
-                identifier={this.imagePath}
+                identifier={true}
                 plants={this.state.plants}/>
        </div>
        </>

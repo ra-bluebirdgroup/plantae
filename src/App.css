@@ -23,6 +23,25 @@
 .card {
   min-width: 70px;
   min-height: 85px;
+  margin: 3px;
+  padding: 3px;
+  border-radius: 0.25rem;
+  box-shadow: 0 20px 40px -14px rgba(0,0,0,0.25);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color: #9dab86;
+  border: 8px solid #e3dfc8;
+ }
+
+ .card:hover{
+  cursor: pointer;
+ }
+
+.idcards {
+  margin-top: -70px;
+  min-width: 70px;
+  min-height: 85px;
   padding: 2px;
   border-radius: 0.25rem;
   box-shadow: 0 20px 40px -14px rgba(0,0,0,0.25);
@@ -36,17 +55,15 @@
 .common_name {
   text-decoration: none;
   font-family: Impact;
-  color: #523906;
+  color: #f1f6f9;
 }
 
 .card_image {
-  background-position: center center;
+  background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
   border-top-left-radius: 0.25rem;
   border-top-right-radius: 0.25rem;
   filter: contrast(70%);
-  overflow: hidden;
   position: relative;
   transition: filter 0.5s cubic-bezier(.43,.41,.22,.91);
   width:  300px;
@@ -87,8 +104,7 @@
 
 .card_image:hover {
   filter: contrast(100%);
-   filter: saturate(300%);
-   border: 1px solid #523906;
+  filter: saturate(300%);
 }
 
 .logo {
@@ -103,13 +119,6 @@
 .logo:hover {
   filter: invert(100%);
 }
-
-.Link:hover {
-   text-align: center;
-   filter: saturate(1000%);
-    background-color: #535204;
-   transition-duration: 1s;
- }
 
  .linkedCard:hover {
     text-align: center;
@@ -155,13 +164,36 @@ span {
 }
 
 .NavBar {
-  min-height: 20px;
+  min-height: 16px;
   background-color: rgb(98, 142, 109);
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: space-around;
   align-items: flex-end;
+  font-size: 16px;
+}
+
+.Link {
+  display: block;
+  color: #000;
+  padding: 10px 17px;
+  text-decoration: none;
+ }
+
+.Link:hover {
+  background-color: #799351;
+  color: white;
+ }
+
+.NavBar input {
+  display: block;
+  padding: 10px;
+  border: none;
+  margin-top: 1px;
+  margin-bottom: 6px;
+  margin-right: -5%;
+  font-size: 14px;
 }
 
 .App {
@@ -202,20 +234,23 @@ span {
 }
 
 .searchButton {
-  background-color: rgb(98, 142, 109);
-   margin-top: 8px;
-   margin-left: 2px;
-   border: none;
-   color: white;
-   padding: 14px 1px;
-   text-decoration: none;
-   font-size: 12px;
-   font-family: Impact, Charcoal, sans-serif;
+  display: block;
+  color: #000;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: -3%;
+  padding: 5px 11px;
+  text-decoration: none;
+  background-color: #a35638;
+  color: white;
+  font-size: 17px;
+  font-family: Impact, Charcoal, sans-serif;
 }
 
 .showPageButton {
   background-color: #a35638;
    min-width: 360px;
+   margin-top: 12px;
    margin-bottom: 12px;
    margin-left: auto;
    margin-right: auto;
@@ -235,10 +270,23 @@ span {
   margin-left: auto;
   margin-right: auto;
   margin-top: 1px;
+  margin-bottom: 1px;
+
+  background-color: #f3f6c8;
+}
+
+.searchinput {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1px;
   margin-bottom: 15px;
   max-height: 20px;
+  max-width: 300px;
   background-color: #f3f6c8;
-
 }
 
 .triangle {
@@ -250,7 +298,6 @@ span {
   height: 0;
   border-left: 5px solid transparent;
   border-right: 20px solid transparent;
-
   border-top: 20px solid #799351;
 }
 

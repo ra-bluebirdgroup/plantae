@@ -115,7 +115,7 @@ componentDidUpdate(prevProps) {
 
  handleChange = (event) => {
    this.setState({
-     [event.target.name]: event.target.value
+     searchTerm: event.target.value
    })
  }
 
@@ -125,16 +125,19 @@ componentDidUpdate(prevProps) {
     let searchBar = ""
 
      this.state.currentPage > 1 ? backButton = <button onClick={this.handleClick}className="navButtons"> ☚ </button> : backButton = ""
-      this.props.food_api && this.state.currentPage >= 7 ? forwardButton = "" : forwardButton = <button onClick={this.handleClick}className="navButtons"> ☛ </button>
-     console.log(this.state)
+
+     if (this.props.identifier || this.props.food_api|| this.props.my_plants) {
+        forwardButton = ""
+      } else {
+        forwardButton = <button onClick={this.handleClick}className="navButtons"> ☛ </button>
+      }
 
      this.props.my_plants ? searchBar = "" : searchBar = <div className="search"> ;
 
      <input
        type="text"
-       name="searchTerm"
+       className="searchinput"
        onChange={this.handleChange}
-       value={this.state.searchTerm}
      /><button onClick={this.getPlants} name="searchButton" className="searchButton"><b>search</b></button>
      </div>
 
