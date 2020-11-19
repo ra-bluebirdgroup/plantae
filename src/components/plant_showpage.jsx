@@ -132,8 +132,7 @@ handleBackButtonClick = (e) => {
               let addOrRemove = "add to garden!"
               let addOrRemoveButton = ""
 
-console.log(this.props.currentUser.userplants)
-                if (this.props.currentUser.userplants && this.props.currentUser.userplants.length > 0){
+                if (this.props.currentUser && this.props.currentUser.userplants && this.props.currentUser.userplants.length > 0){
                   my_garden = this.props.currentUser.userplants.map(plant => plant.scientific_name)
 
 
