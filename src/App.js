@@ -79,38 +79,6 @@ class App extends React.Component {
   },()=> this.props.history.push(`/plants/page=${pageNumer}`))
  }
 
- getPlants = e => {
-   let API = 'https://theplantaeapi.herokuapp.com/api/v1/plants'
-   if (e || this.props.api) {
-     API = "https://theplantaeapi.herokuapp.com/api/v1/flowers"
-   } else if (this.props.food_api) {
-     API = this.props.food_api
-   }
-   fetch(API, {
-   method: "GET",
-   headers: {
-     "Content-Type": "application/json",
-     "Accept": "application/json",
-     currentPage: this.props.currentPage,
-     searchTerm: this.state.searchTerm
-   }
- })
-
- .then(res => res.json())
- .then(data => {
-    if (data.errors) {
-      alert(data.errors)
-   } else if (data.data){
-
-     this.setState({
-       plants: data.data.data,
-       currentPage: Number(data.currentPage),
-       searchTerm: ""
-     })
-   }
-  })
- }
-
  backToWol = (e, queryImage) => {
    console.log(queryImage)
   this.props.history.replace('/identifier')
