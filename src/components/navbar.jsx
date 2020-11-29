@@ -30,12 +30,12 @@ const NavBar = (props) => {
         <Link className="Link" to="/info">
           Info
         </Link>
+        <input
+          type="text"
+          className="searchinput"
+        />
+        <button name="searchButton" className="searchButton"><b>search</b></button>
       </div>
-       <input
-         type="text"
-         className="searchinput"
-       />
-       <button name="searchButton" className="searchButton"><b>search</b></button>
     </>
   )
 }
