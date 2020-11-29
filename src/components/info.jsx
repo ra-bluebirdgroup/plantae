@@ -2,9 +2,6 @@ import React from "react";
 import logo from "./PlantaeLogoNoTree.png";
 
 class Info extends React.Component {
-  state = {
-
-  }
 
   render(){
 

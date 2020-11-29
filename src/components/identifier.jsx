@@ -108,7 +108,7 @@ class Identifier extends React.Component {
         queryImage: reader.result
       },()=> this.postIdentification())
     }
-  console.log(this.state.queryImage)
+
  }
 
   render(){
@@ -126,7 +126,6 @@ class Identifier extends React.Component {
     }
 
     if (this.state.plants && this.state.plants.length > 0) {
-
       plants =
       <>
       <div className="idcards">
@@ -147,10 +146,7 @@ if (this.state.wol) {
       <div className="identifier-page">
       <div className="talk-bubble tri-right border round btm-left-in">
       <div className="talktext">
-      <h2>
-               <TextLoop children={this.state.indentifierResponse}interval={1000} springConfig={{ stiffness: 150 }}>
-               </TextLoop>
-           </h2>
+      <h2> <TextLoop children={this.state.indentifierResponse}interval={1000} springConfig={{ stiffness: 150 }}></TextLoop> </h2>
       </div>
       </div><br/>
       <div className="triangle">
