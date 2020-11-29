@@ -26,7 +26,6 @@ class LogIn extends React.Component {
       .then((res) => res.json())
       .then((data) => {
         if (data.errors) {
-          console.log(data);
           alert(data.errors);
         } else {
           this.props.setUser(data);

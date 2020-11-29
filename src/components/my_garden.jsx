@@ -20,7 +20,6 @@ class MyGarden extends React.Component {
      })
      .then(res => res.json())
      .then(data => {
-       console.log(data.data)
           this.setState({my_plants: data.data})
       })
    }

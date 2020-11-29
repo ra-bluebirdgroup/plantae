@@ -128,24 +128,24 @@ handleBackButtonClick = (e) => {
 }
 
   render(){
-              let my_garden = []
-              let addOrRemove = "add to garden!"
-              let addOrRemoveButton = ""
+    let my_garden = []
+    let addOrRemove = "add to garden!"
+    let addOrRemoveButton = ""
 
-                if (this.props.currentUser && this.props.currentUser.userplants && this.props.currentUser.userplants.length > 0){
-                  my_garden = this.props.currentUser.userplants.map(plant => plant.scientific_name)
+    if (this.props.currentUser && this.props.currentUser.userplants && this.props.currentUser.userplants.length > 0){
+      my_garden = this.props.currentUser.userplants.map(plant => plant.scientific_name)
 
 
-                  if (this.state.plant.data && this.state.plant.data) {
-                   addOrRemove = "remove from garden!"
-                 } else {
-                   addOrRemove = "add to garden!"
-                 }
-                }
+      if (this.state.plant.data && this.state.plant.data) {
+       addOrRemove = "remove from garden!"
+     } else {
+       addOrRemove = "add to garden!"
+     }
+    }
 
-               if (this.props.currentUser){
-                addOrRemoveButton = <button className="showPageButton" onClick={this.addOrRemovePlant} name="cardDetails" value={addOrRemove}>{addOrRemove}</button>
-               }
+   if (this.props.currentUser){
+    addOrRemoveButton = <button className="showPageButton" onClick={this.addOrRemovePlant} name="cardDetails" value={addOrRemove}>{addOrRemove}</button>
+   }
 
     if (this.props.currentUser){
      addOrRemoveButton = <button className="showPageButton" onClick={this.addOrRemovePlant} name="cardDetails" value={addOrRemove}>{addOrRemove}</button>
