@@ -122,7 +122,6 @@ componentDidUpdate(prevProps) {
   render(){
     let backButton = ""
     let forwardButton = ""
-    let searchBar = ""
 
      this.state.currentPage > 1 ? backButton = <button onClick={this.handleClick}className="navButtons"> ☚ </button> : backButton = ""
 
@@ -131,15 +130,6 @@ componentDidUpdate(prevProps) {
       } else {
         forwardButton = <button onClick={this.handleClick}className="navButtons"> ☛ </button>
       }
-
-     this.props.my_plants ? searchBar = "" : searchBar = <div className="search"> ;
-
-     <input
-       type="text"
-       className="searchinput"
-       onChange={this.handleChange}
-     /><button onClick={this.getPlants} name="searchButton" className="searchButton"><b>search</b></button>
-     </div>
 
     if (this.props.plants && this.state.plants.length > 0 ){
       return(
@@ -157,7 +147,7 @@ componentDidUpdate(prevProps) {
     } else if (this.state.plants && this.state.plants.length > 0) {
    return(
      <>
-     {searchBar}
+
      <div className="cards">
          {backButton}
           {
