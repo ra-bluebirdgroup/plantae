@@ -26,13 +26,13 @@ const UserNavBar = props => {
         <Link className="Link" to="/log_out">
           Log Out
         </Link>
+        <input
+          placeholder="Search plants"
+          type="text"
+          className="searchinput"
+        />
+        <button name="searchButton" className="searchButton"><b>search</b></button>
       </div>
-      <input
-        placeholder="Search plants"
-        type="text"
-        className="searchinput"
-      />
-      <button name="searchButton" className="searchButton"><b>search</b></button>
     </>
   )
 }
