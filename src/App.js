@@ -129,10 +129,10 @@ if (this.state.currentUser) {
     <div className="App">
     {navbar}
     <Switch>
-    <Route exact path="/" render={(routerProps)=> <PlantsContainer getPlants={this.getPlants}setCurrentPage={this.setCurrentPage} setCurrentPlantId={this.setCurrentPlantId} setUser={this.setUser} {...this.state} {...routerProps}/>}/>
-    <Route exact path="/plants" render={(routerProps)=> <PlantsContainer setCurrentPage={this.setCurrentPage} setCurrentPlantId={this.setCurrentPlantId} setUser={this.setUser} {...this.state} {...routerProps}/>}/>
-    <Route exact path="/flowers" render={(routerProps)=> <PlantsContainer setCurrentPage={this.setCurrentPage} setCurrentPlantId={this.setCurrentPlantId} api={"flowers"} setUser={this.setUser} {...this.state} {...routerProps}/>}/>
-    <Route exact path="/food" render={(routerProps)=> <PlantsContainer  setCurrentPage={this.setCurrentPage} setCurrentPlantId={this.setCurrentPlantId} food_api={"https://theplantaeapi.herokuapp.com/api/v1/food"} setUser={this.setUser} {...this.state} {...routerProps}/>}/>
+    <Route exact path="/" render={(routerProps)=> <PlantsContainer getPlants={this.getPlants} setCurrentPage={this.setCurrentPage} setCurrentPlantId={this.setCurrentPlantId} setUser={this.setUser} {...this.state} {...routerProps}/>}/>
+    <Route exact path="/plants" render={(routerProps)=> <PlantsContainer getPlants={this.getPlants} setCurrentPage={this.setCurrentPage} setCurrentPlantId={this.setCurrentPlantId} setUser={this.setUser} {...this.state} {...routerProps}/>}/>
+    <Route exact path="/flowers" render={(routerProps)=> <PlantsContainer getPlants={this.getPlants} setCurrentPage={this.setCurrentPage} setCurrentPlantId={this.setCurrentPlantId} api={"flowers"} setUser={this.setUser} {...this.state} {...routerProps}/>}/>
+    <Route exact path="/food" render={(routerProps)=> <PlantsContainer  getPlants={this.getPlants} setCurrentPage={this.setCurrentPage} setCurrentPlantId={this.setCurrentPlantId} food_api={"https://theplantaeapi.herokuapp.com/api/v1/food"} setUser={this.setUser} {...this.state} {...routerProps}/>}/>
     <Route exact path={`/plants/page=${this.state.currentPage}`} render={(routerProps)=> <PlantsContainer setCurrentPage={this.setCurrentPage} setCurrentPlantId={this.setCurrentPlantId} setUser={this.setUser} {...this.state} {...routerProps}/>}/>
     <Route exact path={`/plants/${this.state.currentPlant.id}`} render={(routerProps)=> <PlantShowPage   backToWol={this.backToWol} setUser={this.setUser} setCurrentPage={this.setCurrentPage} {...this.state} {...routerProps}/>}/>
     <Route exact path="/signup" render={(routerProps)=> <SignUp setUser={this.setUser} {...routerProps}/>}/>
