@@ -14,48 +14,17 @@ class PlantsContainer extends React.Component {
     } else if (this.props.plants) {
       this.setState({plants: this.props.plants})
     } else{
-      this.getPlants()
+      this.props.getPlants()
     }
   }
 
 componentDidUpdate(prevProps) {
   if (prevProps !== this.props && !this.props.my_plants){
-    this.getPlants()
+    this.props.getPlants()
  } else if (prevProps !== this.props && this.props.my_plants) {
     this.setState({plants: this.props.my_plants})
  }
 }
-
-  getPlants = e => {
-    let API = 'https://theplantaeapi.herokuapp.com/api/v1/plants'
-    if (e || this.props.api) {
-      API = "https://theplantaeapi.herokuapp.com/api/v1/flowers"
-    } else if (this.props.food_api) {
-      API = this.props.food_api
-    }
-    fetch(API, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-      currentPage: this.props.currentPage,
-      searchTerm: this.state.searchTerm
-    }
-  })
-  .then(res => res.json())
-  .then(data => {
-     if (data.errors) {
-       alert(data.errors)
-    } else if (data.data){
-
-      this.setState({
-        plants: data.data.data,
-        currentPage: Number(data.currentPage),
-        searchTerm: ""
-      })
-    }
-   })
-  }
 
  handleClick = e => {
    let API = 'https://theplantaeapi.herokuapp.com/api/v1/plants'
@@ -88,7 +57,6 @@ componentDidUpdate(prevProps) {
     })
 
    } else {
-
      fetch(API, {
      method: "GET",
      headers: {

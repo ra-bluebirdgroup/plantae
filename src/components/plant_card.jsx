@@ -16,12 +16,15 @@ class PlantCard extends React.Component {
       this.setState({
         plantid: true,
         plant: this.props.plant,
-        image_url: this.props.plant.similar_images[0].url
       })
 
     } else if (!this.props.image_url) {
       this.getImage()
 
+  } else if (this.props.plant.similar_images) {
+    this.setState({
+      image_url: this.props.plant.similar_images[0].url
+    })
   } else {
    this.setState({
      image_url: this.props.image_url
@@ -58,7 +61,7 @@ handleClick = (e) => {
 }
 
   render(){
-    if(this.state.plantid) {
+    if(this.state.plant.plant_details && this.state.plantid) {
       return (
         <div onClick={this.handleClick} onMouseEnter={this.setScientificName} onMouseLeave={this.resetScientificName} className="card">
         <img
