@@ -16,6 +16,7 @@ class PlantCard extends React.Component {
       this.setState({
         plantid: true,
         plant: this.props.plant,
+        image_url: this.props.plant.image_url 
       })
 
     } else if (!this.props.image_url) {
