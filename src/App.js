@@ -140,7 +140,7 @@ if (this.state.currentUser) {
     <Route exact path="/log_out" render={(routerProps)=> <LogOut setUser={this.setUser} {...routerProps}/>}/>
     <Route exact path="/info" render={(routerProps)=> <Info {...routerProps}/>}/>
     <Route exact path="/identifier" render={(routerProps)=> <Identifier backToWol={this.backToWol} setUser={this.setUser} setCurrentPage={this.setCurrentPage} setCurrentPlantId={this.setCurrentPlantId} {...this.state} {...routerProps}/>}/>
-    <Route exact path="/my_garden" render={(routerProps)=> <MyGarden setUser={this.setUser} setCurrentPage={this.setCurrentPage} setCurrentPlantId={this.setCurrentPlantId} {...this.state} {...routerProps}/>}/>
+    <Route exact path="/my_garden" render={(routerProps)=> <MyGarden getPlants={this.getPlants} setUser={this.setUser} setCurrentPage={this.setCurrentPage} setCurrentPlantId={this.setCurrentPlantId} {...this.state} {...routerProps}/>}/>
     </Switch>
     </div>
   );
