@@ -10,17 +10,15 @@ class PlantCard extends React.Component {
 
   componentDidMount(){
     console.log(this.props.plant)
-
     if(this.props.plant) {
-
       this.setState({
         plantid: true,
         plant: this.props.plant,
-        image_url: this.props.plant.image_url 
+        image_url: this.props.plant.image_url
       })
 
     } else if (!this.props.image_url) {
-      this.getImage()
+      console.log("wha")
 
   } else if (this.props.plant.similar_images) {
     this.setState({
