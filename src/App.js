@@ -90,7 +90,7 @@ class App extends React.Component {
 let API = "https://theplantaeapi.herokuapp.com/api/v1/plants"
    if (e || document.location.href == "http://localhost:3000/flowers") {
       API = "https://theplantaeapi.herokuapp.com/api/v1/flowers"
-   } else if (this.props.food_api) {
+   } else if (document.location.href == "http://localhost:3000/food") {
       API = "https://theplantaeapi.herokuapp.com/api/v1/food"
    }
 
