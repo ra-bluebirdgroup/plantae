@@ -21,6 +21,7 @@ class PlantsContainer extends React.Component {
 componentDidUpdate(prevProps) {
   if (prevProps !== this.props && !this.props.my_plants){
     this.props.getPlants()
+    this.setState({plants: this.props.plants})
  } else if (prevProps !== this.props && this.props.my_plants) {
     this.setState({plants: this.props.my_plants})
  }
