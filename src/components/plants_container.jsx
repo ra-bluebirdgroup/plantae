@@ -99,7 +99,7 @@ componentDidUpdate(prevProps) {
         forwardButton = <button onClick={this.handleClick}className="navButtons"> ☛ </button>
       }
 
-    if (this.props.plants ){
+    if (this.props.plants){
       return(
     <>
 
