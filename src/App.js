@@ -87,13 +87,7 @@ class App extends React.Component {
  }
 
  getPlants = e => {
-   let API = 'https://theplantaeapi.herokuapp.com/api/v1/plants'
-
-   if (e || this.props.api) {
-     API = "https://theplantaeapi.herokuapp.com/api/v1/flowers"
-   } else if (this.props.food_api) {
-     API = this.props.food_api
-   }
+   let API = document.location.href.replace("http://localhost:3000/", 'https://theplantaeapi.herokuapp.com/api/v1/')
 
    fetch(API, {
    method: "GET",
