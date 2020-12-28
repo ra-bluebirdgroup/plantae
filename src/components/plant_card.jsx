@@ -18,7 +18,6 @@ class PlantCard extends React.Component {
       })
 
     } else if (!this.props.image_url) {
-      console.log("wha")
 
   } else if (this.props.plant.similar_images) {
     this.setState({
@@ -82,7 +81,7 @@ handleClick = (e) => {
             alt={this.props.scientific_name}
             className="card_image"
           />
-         <p className="common_name">{this.props.common_name}</p>
+         <p className="common_name">{this.props.plant.common_name}</p>
     </div>
     )
   }
